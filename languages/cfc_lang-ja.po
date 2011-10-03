@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodeMirror for CodeEditor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-30 19:23+0900\n"
-"PO-Revision-Date: 2011-09-30 19:24+0900\n"
+"POT-Creation-Date: 2011-10-02 15:22+0900\n"
+"PO-Revision-Date: 2011-10-02 18:26+0900\n"
 "Last-Translator: redcocker <masa153@gmail.com>\n"
 "Language-Team: redcocker\n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,26 @@ msgstr ""
 "X-Poedit-SearchPath-0: wp-content/plugins/codemirror-for-codeeditor\n"
 
 # description
-msgid "Just another code syntaxhighligher for theme and plugn editor with CodeMirror."
-msgstr "「CodeMirror」を利用して「テーマエディター」、「プラグインエディター」のソースコードを強調表示するプラグインです。"
+msgid "Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar."
+msgstr "「CodeMirror」を利用して「テーマエディター」、「プラグインエディター」のソースコードを強調表示するプラグインです。このプラグインは、「テーマエディター」、「プラグインエディター」上のソースコードを強調表示し、エディターに便利なツールバーを追加します。"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:139
-msgid "Select a theme: "
-msgstr "テーマの選択:"
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:231
+msgid "Theme: "
+msgstr "テーマ: "
+
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:231
+msgid "Search"
+msgstr "検索"
+
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:231
+msgid "Replace"
+msgstr "置換"
+
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:231
+msgid "Replace All"
+msgstr "全置換"
+
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:231
+msgid "Clear"
+msgstr "クリア"
 
