@@ -14,7 +14,7 @@ CodeMirror: http://codemirror.net/
 ・検索、置換機能を備えた便利なツールバー。
 ・フルスクリーンモード。
 ・オートコンプリート。
-・設定画面で細かいな設定が可能。
+・設定画面で細かな設定が可能。
 ・メッセージは、英語と日本語(UTF-8)に対応。
 
 = オススメのプラグイン =
@@ -33,7 +33,7 @@ WP SyntaxHighlighter: http://wordpress.org/extend/plugins/wp-syntaxhighlighter/
 
 ・ダウンロードしたファイルを解凍し、「codemirror-for-codeeditor」フォルダごと、WordPressのプラグインディレクトリ（wp-content/plugins/）にアップロードします。
 ・WordPressの管理画面の「プラグイン」で、このプラグインを有効化します。
-・WordPressの管理画面の「設定」にある「CodeMirror for CE」という項目で設定を行います。
+・WordPressの管理画面の「設定」の中の「CodeMirror for CE」という項目で設定を行います。
 
 
 3.アップデート
