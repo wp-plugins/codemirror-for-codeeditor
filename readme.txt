@@ -20,6 +20,7 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 * Useful toolbar which includes search/replace features.
 * Full-screen editing.
 * Auto-complete.
+* Easy to configure features through the setting panel.
 * Localization: English(Default), 日本語(Japanese, UTF-8).
 
 = Support languages =
@@ -37,7 +38,8 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 = Installation =
 
 1. Upload plugin folder to the `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
+1. Activate the plugin through the "Plugins" menu in WordPress.
+1. If you need, go to "Settings" -> "CodeMirror for CE" to configure.
 
 = Usage =
 
