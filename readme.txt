@@ -4,7 +4,7 @@ Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
 Tested up to: 3.2.1
-Stable tag: 0.2
+Stable tag: 0.3
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -44,14 +44,22 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 * You can select a theme, search and replace on the toolbar.
 * Place the cursor in the textarea and press "Esc" or "F11" key to chage to the "fullscreen mode".
 * Press "Ctrl - Space" to activate Auto-omplete.
+* Press "Ctrl" - Z" to undo the previous change.
+* Press "Ctrl" - Y" to redo.
 
 Note: Auto-omplete can't work in the "fullscreen mode".
 
 == Screenshots ==
 
 1. This is a highlighted code in the plugin editor.
+2. This is Auto-omplete Demo.
+3. This is setting panel.
 
 == Changelog ==
+
+= 0.3 =
+* Added setting panel.
+* Modified stylesheet.
 
 = 0.2 =
 * Added Search and Replace functions.
@@ -62,6 +70,9 @@ Note: Auto-omplete can't work in the "fullscreen mode".
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.3 =
+This version has some new features.
 
 = 0.2 =
 This version has some new features.
