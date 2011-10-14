@@ -4,7 +4,7 @@ Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
 Tested up to: 3.2.1
-Stable tag: 0.3
+Stable tag: 0.3.5
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -59,6 +59,11 @@ Note: Auto-omplete can't work in the "fullscreen mode".
 
 == Changelog ==
 
+= 0.3.5 =
+* Rewrote the code using class.
+* Fix a bug: PHP with HTML, Javascript or CSS can't be highlighted correctly.
+* Fix a bug: HTML with Javascript or CSS can't be highlighted correctly.
+
 = 0.3 =
 * Added setting panel.
 * Modified stylesheet.
@@ -72,6 +77,9 @@ Note: Auto-omplete can't work in the "fullscreen mode".
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.3.5 =
+This version has bug fixes.
 
 = 0.3 =
 This version has some new features.
