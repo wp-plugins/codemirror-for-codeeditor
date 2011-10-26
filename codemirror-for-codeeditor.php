@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.3.5
+Version: 0.3.6
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2011/10/14
+Last modified: 2011/10/26
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -35,7 +35,7 @@ License: GPL v2(Except "CodeMirror" libraries)
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.3.5";
+	var $cfc_ver = "0.3.6";
 	var $cfc_db_ver = "0.3";
 	var $cfc_setting_opt;
 
@@ -45,6 +45,7 @@ class CodeMirror_for_CodeEditor {
 		$this->cfc_setting_opt = get_option('cfc_setting_opt');
 		add_action('plugins_loaded', array(&$this, 'cfc_check_db_ver'));
 		add_action('admin_menu', array(&$this, 'cfc_register_menu_item'));
+		add_filter( 'plugin_action_links', array(&$this, 'cfc_setting_link'), 10, 2);
 		add_action('admin_print_styles-theme-editor.php', array(&$this, 'cfc_load_style'));
 		add_action('admin_print_styles-plugin-editor.php', array(&$this, 'cfc_load_style'));
 		add_action('admin_print_scripts-theme-editor.php', array(&$this, 'cfc_load_script'));
@@ -80,7 +81,7 @@ class CodeMirror_for_CodeEditor {
 	// Check DB table version and create table
 	function cfc_check_db_ver(){
 		$current_checkver_stamp = get_option('cfc_checkver_stamp');
-		if (!$current_checkver_stamp || version_compare($current_checkver_stamp, $cfc_db_ver, "!=")) {
+		if (!$current_checkver_stamp || version_compare($current_checkver_stamp, $this->cfc_db_ver, "!=")) {
 			// For new installation
 			if (!$current_checkver_stamp) {
 				// Register array
@@ -112,6 +113,17 @@ class CodeMirror_for_CodeEditor {
 	function cfc_add_admin_footer() {
 		$cfc_plugin_data = get_plugin_data(__FILE__);
 		printf('%1$s by %2$s<br />', $cfc_plugin_data['Title'].' '.$cfc_plugin_data['Version'], $cfc_plugin_data['Author']);
+	}
+
+	// Register the setting panel
+	function cfc_setting_link($links, $file) {
+		static $this_plugin;
+		if (! $this_plugin) $this_plugin = plugin_basename(__FILE__);
+		if ($file == $this_plugin){
+			$settings_link = '<a href="options-general.php?page=codemirror-for-codeeditor-options">'.__("Settings", "cfc_lang").'</a>';
+			array_unshift($links, $settings_link);
+		}  
+		return $links;
 	}
 
 	// Load script in setting panel
