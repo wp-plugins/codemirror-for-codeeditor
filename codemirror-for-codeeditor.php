@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.3.6
+Version: 0.4
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2011/10/26
+Last modified: 2011/10/30
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -30,13 +30,14 @@ License: GPL v2(Except "CodeMirror" libraries)
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /* 
-"CodeMirror for CodeEditor" uses CodeMirror ver. 2.15 by Marijn Haverbeke. 
+"CodeMirror for CodeEditor" uses CodeMirror2 by Marijn Haverbeke. 
 */
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.3.6";
+	var $cfc_ver = "0.4";
 	var $cfc_db_ver = "0.3";
+	var $cfc_lib_ver = "2.16.22";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -133,26 +134,26 @@ class CodeMirror_for_CodeEditor {
 
 	// Add styles into the header
 	function cfc_load_style() {
-		wp_enqueue_style('codemirror', $this->cfc_plugin_url.'codemirror/lib/codemirror.css', false, '2.15');
-		wp_enqueue_style('codemirror-theme-default', $this->cfc_plugin_url.'codemirror/theme/default.css', false, '2.15');
-		wp_enqueue_style('codemirror-theme-cobalt', $this->cfc_plugin_url.'codemirror/theme/cobalt.css', false, '2.15');
-		wp_enqueue_style('codemirror-theme-eclipse', $this->cfc_plugin_url.'codemirror/theme/eclipse.css', false, '2.15');
-		wp_enqueue_style('codemirror-theme-elegant', $this->cfc_plugin_url.'codemirror/theme/elegant.css', false, '2.15');
-		wp_enqueue_style('codemirror-theme-neat', $this->cfc_plugin_url.'codemirror/theme/neat.css', false, '2.15');
-		wp_enqueue_style('codemirror-theme-night', $this->cfc_plugin_url.'codemirror/theme/night.css', false, '2.15');
+		wp_enqueue_style('codemirror', $this->cfc_plugin_url.'codemirror/lib/codemirror.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-default', $this->cfc_plugin_url.'codemirror/theme/default.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-cobalt', $this->cfc_plugin_url.'codemirror/theme/cobalt.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-eclipse', $this->cfc_plugin_url.'codemirror/theme/eclipse.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-elegant', $this->cfc_plugin_url.'codemirror/theme/elegant.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-neat', $this->cfc_plugin_url.'codemirror/theme/neat.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-night', $this->cfc_plugin_url.'codemirror/theme/night.css', false, $this->cfc_lib_ver);
 	}
 
 	// Add scripts into the header
 	function cfc_load_script() {
 		wp_enqueue_script('jquery');
-		wp_enqueue_script('codemirror', $this->cfc_plugin_url.'codemirror/lib/codemirror.js', false, '2.15');
-		wp_enqueue_script('codemirror-mode-css', $this->cfc_plugin_url.'codemirror/mode/css/css.js', false, '2.15');
-		wp_enqueue_script('codemirror-mode-js', $this->cfc_plugin_url.'codemirror/mode/javascript/javascript.js', false, '2.15');
-		wp_enqueue_script('codemirror-mode-xml', $this->cfc_plugin_url.'codemirror/mode/xml/xml.js', false, '2.15');
-		wp_enqueue_script('codemirror-mode-clike', $this->cfc_plugin_url.'codemirror/mode/clike/clike.js', false, '2.15');
-		wp_enqueue_script('codemirror-mode-php', $this->cfc_plugin_url.'codemirror/mode/php/php.js', false, '2.15');
-		wp_enqueue_script('codemirror-mode-htmlmixed', $this->cfc_plugin_url.'codemirror/mode/htmlmixed/htmlmixed.js', false, '2.15');
-		wp_enqueue_script('codemirror-auto-complete', $this->cfc_plugin_url.'codemirror/lib/complete.js', false, '2.15');
+		wp_enqueue_script('codemirror', $this->cfc_plugin_url.'codemirror/lib/codemirror.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-mode-css', $this->cfc_plugin_url.'codemirror/mode/css/css.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-mode-js', $this->cfc_plugin_url.'codemirror/mode/javascript/javascript.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-mode-xml', $this->cfc_plugin_url.'codemirror/mode/xml/xml.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-mode-clike', $this->cfc_plugin_url.'codemirror/mode/clike/clike.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-mode-php', $this->cfc_plugin_url.'codemirror/mode/php/php.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-mode-htmlmixed', $this->cfc_plugin_url.'codemirror/mode/htmlmixed/htmlmixed.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-auto-complete', $this->cfc_plugin_url.'codemirror/lib/complete.js', false, $this->cfc_lib_ver);
 	}
 
 	// Add scripts into the footer
@@ -323,7 +324,6 @@ function clear_result(){
 		echo '</select> <input type=\"text\" size=\"12\" id=\"query\" /><button type=\"button\" onclick=\"search()\">'.__("Search", "cfc_lang").'</button> '.__("with", "cfc_lang").' <input type=\"text\" size=\"12\" id=\"replace_str\" /><button type=\"button\" onclick=\"replace()\">'.__("Replace", "cfc_lang").'</button> <button type=\"button\" onclick=\"replace_all()\">'.__("Replace All", "cfc_lang").'</button> <button type=\"button\" onclick=\"clear_result()\">'.__("Clear", "cfc_lang").'</button></div>");
 </script>';
 		echo "<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for creating toolbar End -->\n";
-
 	}
 
 	// Add addtional style into the header

@@ -1,0 +1,311 @@
+# Copyright (C) 2010 CodeMirror for CodeEditor
+# This file is distributed under the same license as the CodeMirror for CodeEditor package.
+msgid ""
+msgstr ""
+"Project-Id-Version: CodeMirror for CodeEditor 0.3.6\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/codemirror-for-codeeditor\n"
+"POT-Creation-Date: 2011-10-28 00:57:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: codemirror-for-codeeditor.php:109
+msgid ""
+"CodeMirror for CodeEditor has successfully created new DB table.<br />If you "
+"upgraded to this version, some setting options may be added or reset to the "
+"default values.<br />Go to the <a href=\"options-general.php?page=codemirror-"
+"for-codeeditor-options\">setting panel</a> and configure CodeMirror for "
+"CodeEditor now. Once you save your settings, this message will be cleared."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:123
+msgid "Settings"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:312
+msgid "Theme: "
+msgstr ""
+
+#: codemirror-for-codeeditor.php:323
+msgid "Search"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:323
+msgid "with"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:323
+msgid "Replace"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:323
+msgid "Replace All"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:323
+msgid "Clear"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:376
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:425
+msgid ""
+"Invalid value. Settings could not be saved.<br />Your \"Gutter Size\" must "
+"be entered in numbers."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:428
+msgid ""
+"Invalid value. Settings could not be saved.<br />Your \"Tab size\" must be "
+"entered in numbers."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:434
+msgid "Settings saved."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:443
+msgid ""
+"All settings were reset. Please <a href=\"options-general.php?"
+"page=codemirror-for-codeeditor-options\">reload the page</a>."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:453
+msgid "1. Settings"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:456
+msgid "Highlight sourcecodes"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:458 codemirror-for-codeeditor.php:479
+#: codemirror-for-codeeditor.php:486 codemirror-for-codeeditor.php:503
+#: codemirror-for-codeeditor.php:517 codemirror-for-codeeditor.php:547
+#: codemirror-for-codeeditor.php:554
+msgid "Enable"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:459
+msgid "Enable/Disable code highlighting."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:463
+msgid "Theme"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:473
+msgid "Select a theme.<br />You can also select another theme on the editor."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:477
+msgid "Show linenumber"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:480
+msgid "Show/Hide linenumber."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:484
+msgid "Show gutter"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:487
+msgid ""
+"Show/Hide gutter. You can set a marker icon on the gutter by clicking "
+"linenumber.<br />Even when linenumber is hidden, the gutter will be shown."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:491
+msgid "Gutter size"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:496
+msgid "pixel"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:497
+msgid "You can resize the row for the linenumber and gutter."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:501
+msgid "Fixed gutter"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:504
+msgid ""
+"When you scroll the textarea horizontally, the gutter will stay visible."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:508
+msgid "Tab size"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:511
+msgid ""
+"Set the tab(indent) size by the number of space characters.<br />For detail, "
+"refer to <a href=\"http://codemirror.net/manual.html#option_indentUnit\">"
+"\"indentUnit\" section</a> in the manual."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:515
+msgid "Indent with tabs"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:518
+msgid ""
+"The leading every multiple of 8 spaces will be replaced with tabs.<br />For "
+"detail, refer to <a href=\"http://codemirror.net/manual."
+"html#option_indentWithTabs\">\"indentWithTabs\" section</a> in the manual."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:522
+msgid "Tab mode"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:530
+msgid ""
+"Determine what happens when the tab key is pressed.<br />For detail, refer "
+"to <a href=\"http://codemirror.net/manual.html#option_tabMode\">\"tabMode\" "
+"section</a> in the manual."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:534
+msgid "Indentation for a new line"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:541
+msgid ""
+"Determines whether and how new lines are indented.<br />For detail, refer to "
+"<a href=\"http://codemirror.net/manual.html#option_enterMode\">\"enterMode\" "
+"section</a> in the manual."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:545
+msgid "Highlight pair of brackets"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:548
+msgid ""
+"The pair of brackets will be highlighted when a bracket is selected with "
+"your mouse.<br />For detail, refer to <a href=\"http://codemirror.net/manual."
+"html#matchBrackets\">\"matchBrackets\" section</a> in the manual."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:552
+msgid "Auto indentation"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:555
+msgid ""
+"When some constructional characters are typed, they will be indented "
+"automatically and automatically.<br/ >For example \"{ }\" in \"{ }\".<br /"
+">For detail, refer to <a href=\"http://codemirror.net/manual."
+"html#option_electricChars\">\"electricChars\" section</a> in the manual."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:560
+msgid "Save Changes"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:563
+msgid "2. Restore all settings to default"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:568
+msgid "Reset All Settings"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:571
+msgid "3. Your System Info"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:574
+msgid "Server OS:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:575
+msgid "PHP version:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:576
+msgid "MySQL version:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:577
+msgid "WordPress version:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:578
+msgid "Site URL:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:579
+msgid "WordPress URL:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:580
+msgid "WordPress language:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:581
+msgid "WordPress character set:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:582
+msgid "WordPress theme:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:583
+msgid "CodeMirror for CodeEditor version:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:584
+msgid "CodeMirror for CodeEditor DB version:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:585
+msgid "CodeMirror for CodeEditor URL:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:586
+msgid "Your browser:"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:590
+msgid "To report a bug ,submit requests and feedback, "
+msgstr ""
+
+#: codemirror-for-codeeditor.php:590
+msgid ""
+"Use <a href=\"http://wordpress.org/tags/codemirror-for-codeeditor?forum_id=10"
+"\">Forum</a> or <a href=\"http://www.near-mint.com/blog/contact\">Mail From</"
+"a>"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "CodeMirror for CodeEditor"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.near-mint.com/blog/software/codemirror-for-codeeditor"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Just another code syntaxhighligher for the theme and plugin editor with "
+"CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and "
+"provide a useful toolbar."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "redcocker"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.near-mint.com/blog/"
+msgstr ""
