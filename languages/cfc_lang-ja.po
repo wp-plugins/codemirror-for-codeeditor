@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodeMirror for CodeEditor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-21 00:38+0900\n"
-"PO-Revision-Date: 2011-10-21 00:39+0900\n"
+"POT-Creation-Date: 2011-10-31 08:19+0900\n"
+"PO-Revision-Date: 2011-10-31 08:20+0900\n"
 "Last-Translator: redcocker <masa153@gmail.com>\n"
 "Language-Team: redcocker\n"
 "MIME-Version: 1.0\n"
@@ -20,35 +20,35 @@ msgstr ""
 msgid "Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar."
 msgstr "「CodeMirror」を利用して「テーマエディター」、「プラグインエディター」のソースコードを強調表示するプラグインです。このプラグインは、「テーマエディター」、「プラグインエディター」上のソースコードを強調表示し、エディターに便利なツールバーを追加します。"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:109
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:110
 msgid "CodeMirror for CodeEditor has successfully created new DB table.<br />If you upgraded to this version, some setting options may be added or reset to the default values.<br />Go to the <a href=\"options-general.php?page=codemirror-for-codeeditor-options\">setting panel</a> and configure CodeMirror for CodeEditor now. Once you save your settings, this message will be cleared."
 msgstr "CodeMirror for CodeEditorは、新しいデータベーステーブルの作成に成功しました。<br />以前のバージョンからアップデートした場合は、設定オプションが追加されていたり、リセットされているかもしてません。<br /><a href=\"options-general.php?page=codemirror-for-codeeditor-options\">設定画面</a>で、CodeMirror for CodeEditorの設定を行って下さい。一度、設定を保存すれば、このメッセージは消えます。"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:123
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:124
 msgid "Settings"
 msgstr "設定"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:312
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:313
 msgid "Theme: "
 msgstr "テーマ: "
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:323
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:324
 msgid "Search"
 msgstr "検索"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:323
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:324
 msgid "with"
 msgstr "次の文字列で"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:323
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:324
 msgid "Replace"
 msgstr "置換"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:323
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:324
 msgid "Replace All"
 msgstr "全置換"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:323
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:324
 msgid "Clear"
 msgstr "クリア"
 
@@ -246,19 +246,23 @@ msgstr "CodeMirror for CodeEditorのバージョン:"
 msgid "CodeMirror for CodeEditor DB version:"
 msgstr "CodeMirror for CodeEditorのDBバージョン:"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:585
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:586
+msgid "CodeMirror version:"
+msgstr "CodeMirrorのバージョン:"
+
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:587
 msgid "CodeMirror for CodeEditor URL:"
 msgstr "CodeMirror for CodeEditorのURL:"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:586
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:588
 msgid "Your browser:"
 msgstr "ブラウザ:"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:590
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:592
 msgid "To report a bug ,submit requests and feedback, "
 msgstr "バグの報告、ご要望、ご感想は、"
 
-#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:590
+#: wp-content/plugins/codemirror-for-codeeditor/codemirror-for-codeeditor.php:592
 msgid "Use <a href=\"http://wordpress.org/tags/codemirror-for-codeeditor?forum_id=10\">Forum</a> or <a href=\"http://www.near-mint.com/blog/contact\">Mail From</a>"
 msgstr "<a href=\"http://wordpress.org/tags/codemirror-for-codeeditor?forum_id=10\">フォーラム</a> または、<a href=\"http://www.near-mint.com/blog/contact\">メールフォーム</a>まで"
 

@@ -1043,24 +1043,6 @@ var CodeMirror = (function() {
       if (posLess(to, from)) {var tmp = to; to = from; from = tmp;}
 
       // Skip over hidden lines.
-      function skipHidden(pos, oldLine, oldCh) {
-        function getNonHidden(dir) {
-          var lNo = pos.line + dir, end = dir == 1 ? doc.size : -1;
-          while (lNo != end) {
-            var line = getLine(lNo);
-            if (!line.hidden) {
-              var ch = pos.ch;
-              if (ch > oldCh || ch > line.text.length) ch = line.text.length;
-              return {line: lNo, ch: ch};
-            }
-            lNo += dir;
-          }
-        }
-        var line = getLine(pos.line);
-        if (!line.hidden) return pos;
-        if (pos.line > oldLine) return getNonHidden(1) || getNonHidden(-1);
-        else return getNonHidden(-1) || getNonHidden(1);
-      }
       if (from.line != oldFrom) from = skipHidden(from, oldFrom, sel.from.ch);
       if (to.line != oldTo) to = skipHidden(to, oldTo, sel.to.ch);
 
@@ -1094,6 +1076,24 @@ var CodeMirror = (function() {
       }
       sel.from = from; sel.to = to;
       selectionChanged = true;
+    }
+    function skipHidden(pos, oldLine, oldCh) {
+      function getNonHidden(dir) {
+        var lNo = pos.line + dir, end = dir == 1 ? doc.size : -1;
+        while (lNo != end) {
+          var line = getLine(lNo);
+          if (!line.hidden) {
+            var ch = pos.ch;
+            if (ch > oldCh || ch > line.text.length) ch = line.text.length;
+            return {line: lNo, ch: ch};
+          }
+          lNo += dir;
+        }
+      }
+      var line = getLine(pos.line);
+      if (!line.hidden) return pos;
+      if (pos.line >= oldLine) return getNonHidden(1) || getNonHidden(-1);
+      else return getNonHidden(-1) || getNonHidden(1);
     }
     function setCursor(line, ch, user) {
       var pos = clipPos({line: line, ch: ch || 0});
@@ -1253,6 +1253,7 @@ var CodeMirror = (function() {
     TextMarker.prototype.clear = operation(function() {
       for (var i = 0, e = this.set.length; i < e; ++i) {
         var mk = this.set[i].marked;
+        if (!mk) continue;
         for (var j = 0; j < mk.length; ++j) {
           if (mk[j].set == this.set) mk.splice(j--, 1);
         }
@@ -1298,7 +1299,7 @@ var CodeMirror = (function() {
       if (typeof handle == "number") line = getLine(clipLine(handle));
       else no = lineNo(handle);
       if (no == null) return null;
-      if (op(line)) changes.push({from: no, to: no + 1});
+      if (op(line, no)) changes.push({from: no, to: no + 1});
       return line;
     }
     function setLineClass(handle, className) {
@@ -1312,10 +1313,13 @@ var CodeMirror = (function() {
       });
     }
     function setLineHidden(handle, hidden) {
-      return changeLine(handle, function(line) {
+      return changeLine(handle, function(line, no) {
         if (line.hidden != hidden) {
           line.hidden = hidden;
           updateLineHeight(line, hidden ? 0 : 1);
+          if (hidden && (sel.from.line == no || sel.to.line == no))
+            setSelection(skipHidden(sel.from, sel.from.line, sel.from.ch),
+                         skipHidden(sel.to, sel.to.line, sel.to.ch));
           return (gutterDirty = true);
         }
       });
@@ -1333,7 +1337,7 @@ var CodeMirror = (function() {
         if (n == null) return null;
       }
       var marker = line.gutterMarker;
-      return {line: n, text: line.text, markerText: marker && marker.text, markerClass: marker && marker.style};
+      return {line: n, text: line.text, markerText: marker && marker.text, markerClass: marker && marker.style, lineClass: line.className};
     }
 
     function stringWidth(str) {
@@ -1923,11 +1927,11 @@ var CodeMirror = (function() {
     }
     return nstate;
   }
-  CodeMirror.startState = startState;
+  CodeMirror.copyState = copyState;
   function startState(mode, a1, a2) {
     return mode.startState ? mode.startState(a1, a2) : true;
   }
-  CodeMirror.copyState = copyState;
+  CodeMirror.startState = startState;
 
   // The character stream used by a mode's parser.
   function StringStream(string) {

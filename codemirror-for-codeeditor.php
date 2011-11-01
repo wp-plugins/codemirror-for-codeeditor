@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.4
+Version: 0.4.1
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2011/10/30
+Last modified: 2011/11/1
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -35,9 +35,9 @@ License: GPL v2(Except "CodeMirror" libraries)
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.4";
+	var $cfc_ver = "0.4.1";
 	var $cfc_db_ver = "0.3";
-	var $cfc_lib_ver = "2.16.22";
+	var $cfc_lib_ver = "2.16.30";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -139,6 +139,7 @@ class CodeMirror_for_CodeEditor {
 		wp_enqueue_style('codemirror-theme-cobalt', $this->cfc_plugin_url.'codemirror/theme/cobalt.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-eclipse', $this->cfc_plugin_url.'codemirror/theme/eclipse.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-elegant', $this->cfc_plugin_url.'codemirror/theme/elegant.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-monokai', $this->cfc_plugin_url.'codemirror/theme/monokai.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-neat', $this->cfc_plugin_url.'codemirror/theme/neat.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-night', $this->cfc_plugin_url.'codemirror/theme/night.css', false, $this->cfc_lib_ver);
 	}
@@ -312,7 +313,7 @@ function clear_result(){
 <script type=\"text/javascript\">\n";
 		echo 'jQuery("#newcontent").after("<div id =\"cfc-toolbar\"><label>'.__("Theme: ", "cfc_lang").'</label><select id=\"cfc-theme\" onchange=\"selectTheme(this)\">';
 
-		$theme_list = array("default", "cobalt", "eclipse", "elegant", "neat", "night");
+		$theme_list = array("default", "cobalt", "eclipse", "elegant", "monokai", "neat", "night");
 		foreach ($theme_list as $val) {
 			if ($val == $cfc_setting_opt['theme']) {
 				echo '<option value=\"'.$val.'\" selected=\"selected\">'.$val.'</option>';
@@ -363,6 +364,7 @@ function clear_result(){
 .cm-s-default {background: #ffffff;}
 .cm-s-eclipse {background: #ffffff;}
 .cm-s-elegant {background: #ffffff;}
+.cm-s-monokai {background: #272822;}
 .cm-s-neat {background: #ffffff;}
 .cm-s-night {background: #0a001f;}
 </style>";
@@ -467,6 +469,7 @@ function clear_result(){
 						<option value="cobalt" <?php if ($cfc_setting_opt['theme'] == "cobalt") {echo 'selected="selected"';} ?>>cobalt</option>
 						<option value="eclipse" <?php if ($cfc_setting_opt['theme'] == "eclipse") {echo 'selected="selected"';} ?>>eclipse</option>
 						<option value="elegant" <?php if ($cfc_setting_opt['theme'] == "elegant") {echo 'selected="selected"';} ?>>elegant</option>
+						<option value="monokai" <?php if ($cfc_setting_opt['theme'] == "monokai") {echo 'selected="selected"';} ?>>monokai</option>
 						<option value="neat" <?php if ($cfc_setting_opt['theme'] == "neat") {echo 'selected="selected"';} ?>>neat</option>
 						<option value="night" <?php if ($cfc_setting_opt['theme'] == "night") {echo 'selected="selected"';} ?>>night</option>
 					</select>
@@ -582,6 +585,8 @@ function clear_result(){
 		<?php _e("WordPress theme:", "cfc_lang") ?> <?php $cfc_theme = get_theme(get_current_theme()); echo $cfc_theme['Name'].' '.$cfc_theme['Version']; ?><br />
 		<?php _e("CodeMirror for CodeEditor version:", "cfc_lang") ?> <?php $cfc_plugin_data = get_plugin_data(__FILE__); echo $cfc_plugin_data['Version']; ?><br />
 		<?php _e("CodeMirror for CodeEditor DB version:", "cfc_lang") ?> <?php echo get_option('cfc_checkver_stamp'); ?><br />
+
+		<?php _e("CodeMirror version:", "cfc_lang") ?> <?php echo $this->cfc_lib_ver; ?><br />
 		<?php _e("CodeMirror for CodeEditor URL:", "cfc_lang") ?> <?php echo $this->cfc_plugin_url; ?><br />
 		<?php _e("Your browser:", "cfc_lang") ?> <?php echo esc_html($_SERVER['HTTP_USER_AGENT']); ?>
 		</p>
