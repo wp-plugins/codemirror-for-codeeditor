@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.4.1
+Version: 0.4.2
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2011/11/1
+Last modified: 2011/11/2
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -35,7 +35,7 @@ License: GPL v2(Except "CodeMirror" libraries)
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.4.1";
+	var $cfc_ver = "0.4.2";
 	var $cfc_db_ver = "0.3";
 	var $cfc_lib_ver = "2.16.30";
 	var $cfc_setting_opt;
@@ -306,6 +306,10 @@ function clear_result(){
 	document.getElementById("query").value = '';
 	document.getElementById("replace_str").value = '';
 }
+
+function save_all() {
+	document.getElementById('submit').click();
+};
 </script>
 		<?php
 		echo "<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for toolbar End -->
@@ -322,7 +326,7 @@ function clear_result(){
 			}
 		}
 
-		echo '</select> <input type=\"text\" size=\"12\" id=\"query\" /><button type=\"button\" onclick=\"search()\">'.__("Search", "cfc_lang").'</button> '.__("with", "cfc_lang").' <input type=\"text\" size=\"12\" id=\"replace_str\" /><button type=\"button\" onclick=\"replace()\">'.__("Replace", "cfc_lang").'</button> <button type=\"button\" onclick=\"replace_all()\">'.__("Replace All", "cfc_lang").'</button> <button type=\"button\" onclick=\"clear_result()\">'.__("Clear", "cfc_lang").'</button></div>");
+		echo '</select> <input type=\"text\" size=\"12\" id=\"query\" /><button type=\"button\" onclick=\"search()\">'.__("Search", "cfc_lang").'</button> '.__("with", "cfc_lang").' <input type=\"text\" size=\"12\" id=\"replace_str\" /><button type=\"button\" onclick=\"replace()\">'.__("Replace", "cfc_lang").'</button> <button type=\"button\" onclick=\"replace_all()\">'.__("Replace All", "cfc_lang").'</button> <button type=\"button\" onclick=\"clear_result()\">'.__("Clear", "cfc_lang").'</button> <button type=\"button\" class=\"button-primary\" onclick=\"save_all()\">'.__("Update File", "cfc_lang").'</button></div>");
 </script>';
 		echo "<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for creating toolbar End -->\n";
 	}
