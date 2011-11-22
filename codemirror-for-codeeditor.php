@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.4.2
+Version: 0.4.5
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2011/11/2
+Last modified: 2011/11/22
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -35,9 +35,9 @@ License: GPL v2(Except "CodeMirror" libraries)
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.4.2";
+	var $cfc_ver = "0.4.5";
 	var $cfc_db_ver = "0.3";
-	var $cfc_lib_ver = "2.16.30";
+	var $cfc_lib_ver = "2.18";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -142,6 +142,8 @@ class CodeMirror_for_CodeEditor {
 		wp_enqueue_style('codemirror-theme-monokai', $this->cfc_plugin_url.'codemirror/theme/monokai.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-neat', $this->cfc_plugin_url.'codemirror/theme/neat.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-night', $this->cfc_plugin_url.'codemirror/theme/night.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-rubyblue', $this->cfc_plugin_url.'codemirror/theme/rubyblue.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-simple-hint', $this->cfc_plugin_url.'codemirror/lib/util/simple-hint.css', false, $this->cfc_lib_ver);
 	}
 
 	// Add scripts into the header
@@ -154,7 +156,8 @@ class CodeMirror_for_CodeEditor {
 		wp_enqueue_script('codemirror-mode-clike', $this->cfc_plugin_url.'codemirror/mode/clike/clike.js', false, $this->cfc_lib_ver);
 		wp_enqueue_script('codemirror-mode-php', $this->cfc_plugin_url.'codemirror/mode/php/php.js', false, $this->cfc_lib_ver);
 		wp_enqueue_script('codemirror-mode-htmlmixed', $this->cfc_plugin_url.'codemirror/mode/htmlmixed/htmlmixed.js', false, $this->cfc_lib_ver);
-		wp_enqueue_script('codemirror-auto-complete', $this->cfc_plugin_url.'codemirror/lib/complete.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-simple-hint-js', $this->cfc_plugin_url.'codemirror/lib/util/simple-hint.js', false, $this->cfc_lib_ver);
+		wp_enqueue_script('codemirror-js-hint', $this->cfc_plugin_url.'codemirror/lib/util/javascript-hint.js', false, $this->cfc_lib_ver);
 	}
 
 	// Add scripts into the footer
@@ -207,7 +210,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById(\"newcontent\"), {
 			cm.setMarker(n, \"● %N%\");
 	},\n";
 		}
-        	echo "	onKeyEvent: function(i, e) {
+        	echo "	onKeyEvent: function(cm, e) {
 		// Hook into F11
 		if ((e.keyCode == 122 || e.keyCode == 27) && e.type == 'keydown') {
 			e.stop();
@@ -218,7 +221,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById(\"newcontent\"), {
 			e.stop();
 			var editorDiv = jQuery('.CodeMirror-scroll');
 			if (!editorDiv.hasClass('fullscreen')) {
-				return startComplete();
+				return CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
 			}
 		}
 	},
@@ -257,7 +260,7 @@ function toggleFullscreenEditing(){
 var lastPos = null, lastQuery = null, marked = [];
 
 function unmark() {
-	for (var i = 0; i < marked.length; ++i) marked[i]();
+	for (var i = 0; i < marked.length; ++i) marked[i].clear();
 	marked.length = 0;
 }
 
@@ -317,7 +320,7 @@ function save_all() {
 <script type=\"text/javascript\">\n";
 		echo 'jQuery("#newcontent").after("<div id =\"cfc-toolbar\"><label>'.__("Theme: ", "cfc_lang").'</label><select id=\"cfc-theme\" onchange=\"selectTheme(this)\">';
 
-		$theme_list = array("default", "cobalt", "eclipse", "elegant", "monokai", "neat", "night");
+		$theme_list = array("default", "cobalt", "eclipse", "elegant", "monokai", "neat", "night", "rubyblue");
 		foreach ($theme_list as $val) {
 			if ($val == $cfc_setting_opt['theme']) {
 				echo '<option value=\"'.$val.'\" selected=\"selected\">'.$val.'</option>';
@@ -362,8 +365,6 @@ function save_all() {
 .fullscreen {height: 89%; right: 0; position: fixed; top: 80px; width: 100%; z-index: 100;}
 #cfc-toolbar {margin-bottom: 2px;}
 .cfc-toolbar-full {background-color: #ffffff; min-height: 85px; position: fixed; top: 50px; z-index: 100;}
-.completions {position: absolute; z-index: 10; overflow: hidden; -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2); -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2); box-shadow: 2px 3px 5px rgba(0,0,0,.2);}
-.completions select {background: #fafafa; outline: none; border: none; padding: 0; margin: 0; font-family: monospace;}
 .cm-s-cobalt {background: #002240;}
 .cm-s-default {background: #ffffff;}
 .cm-s-eclipse {background: #ffffff;}
@@ -371,6 +372,7 @@ function save_all() {
 .cm-s-monokai {background: #272822;}
 .cm-s-neat {background: #ffffff;}
 .cm-s-night {background: #0a001f;}
+.cm-s-rubyblue {background: #112435;}
 </style>";
 		echo "\n<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Differential css End -->\n";
 	}
@@ -476,6 +478,7 @@ function save_all() {
 						<option value="monokai" <?php if ($cfc_setting_opt['theme'] == "monokai") {echo 'selected="selected"';} ?>>monokai</option>
 						<option value="neat" <?php if ($cfc_setting_opt['theme'] == "neat") {echo 'selected="selected"';} ?>>neat</option>
 						<option value="night" <?php if ($cfc_setting_opt['theme'] == "night") {echo 'selected="selected"';} ?>>night</option>
+						<option value="rubyblue" <?php if ($cfc_setting_opt['theme'] == "rubyblue") {echo 'selected="selected"';} ?>>rubyblue</option>
 					</select>
 					<p><small><?php _e("Select a theme.<br />You can also select another theme on the editor.", "cfc_lang") ?></small></p>
 				</td>

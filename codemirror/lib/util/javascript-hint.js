@@ -1,105 +1,51 @@
-// Modified by redcocker
-// Last modified: 2011/10/1
-
-// Minimal event-handling wrapper.
-function stopEvent() {
-  if (this.preventDefault) {this.preventDefault(); this.stopPropagation();}
-  else {this.returnValue = false; this.cancelBubble = true;}
-}
-function addStop(event) {
-  if (!event.stop) event.stop = stopEvent;
-  return event;
-}
-function connect(node, type, handler) {
-  function wrapHandler(event) {handler(addStop(event || window.event));}
-  if (typeof node.addEventListener == "function")
-    node.addEventListener(type, wrapHandler, false);
-  else
-    node.attachEvent("on" + type, wrapHandler);
-}
-
-function forEach(arr, f) {
-  for (var i = 0, e = arr.length; i < e; ++i) f(arr[i]);
-}
-
-function startComplete() {
-  // We want a single cursor position.
-  if (editor.somethingSelected()) return;
-  // Find the token at the cursor
-  var cur = editor.getCursor(false), token = editor.getTokenAt(cur), tprop = token;
-  // If it's not a 'word-style' token, ignore the token.
-  if (!/^[\w$_]*$/.test(token.string)) {
-    token = tprop = {start: cur.ch, end: cur.ch, string: "", state: token.state,
-                     className: token.string == "." ? "property" : null};
+(function () {
+  function forEach(arr, f) {
+    for (var i = 0, e = arr.length; i < e; ++i) f(arr[i]);
   }
-  // If it is a property, find out what it is a property of.
-  while (tprop.className == "property") {
-    tprop = editor.getTokenAt({line: cur.line, ch: tprop.start});
-    if (tprop.string != ".") return;
-    tprop = editor.getTokenAt({line: cur.line, ch: tprop.start});
-    if (!context) var context = [];
-    context.push(tprop);
+  
+  function arrayContains(arr, item) {
+    if (!Array.prototype.indexOf) {
+      var i = arr.length;
+      while (i--) {
+        if (arr[i] === item) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return arr.indexOf(item) != -1;
   }
-  var completions = getCompletions(token, context);
-  if (!completions.length) return;
-  function insert(str) {
-    editor.replaceRange(str, {line: cur.line, ch: token.start}, {line: cur.line, ch: token.end});
+  
+  CodeMirror.javascriptHint = function(editor) {
+    // Find the token at the cursor
+    var cur = editor.getCursor(), token = editor.getTokenAt(cur), tprop = token;
+    // If it's not a 'word-style' token, ignore the token.
+    if (!/^[\w$_]*$/.test(token.string)) {
+      token = tprop = {start: cur.ch, end: cur.ch, string: "", state: token.state,
+                       className: token.string == "." ? "property" : null};
+    }
+    // If it is a property, find out what it is a property of.
+    while (tprop.className == "property") {
+      tprop = editor.getTokenAt({line: cur.line, ch: tprop.start});
+      if (tprop.string != ".") return;
+      tprop = editor.getTokenAt({line: cur.line, ch: tprop.start});
+      if (!context) var context = [];
+      context.push(tprop);
+    }
+    return {list: getCompletions(token, context),
+            from: {line: cur.line, ch: token.start},
+            to: {line: cur.line, ch: token.end}};
   }
-  // When there is only one completion, use it directly.
-  if (completions.length == 1) {insert(completions[0]); return true;}
 
-  // Build the select widget
-  var complete = document.createElement("div");
-  complete.className = "completions";
-  var sel = complete.appendChild(document.createElement("select"));
-  sel.multiple = true;
-  for (var i = 0; i < completions.length; ++i) {
-    var opt = sel.appendChild(document.createElement("option"));
-    opt.appendChild(document.createTextNode(completions[i]));
-  }
-  sel.firstChild.selected = true;
-  sel.size = Math.min(10, completions.length);
-  var pos = editor.cursorCoords();
-  complete.style.left = pos.x + "px";
-  complete.style.top = pos.yBot + "px";
-  document.body.appendChild(complete);
-  // Hack to hide the scrollbar.
-  if (completions.length <= 10)
-    complete.style.width = (sel.clientWidth - 1) + "px";
-
-  var done = false;
-  function close() {
-    if (done) return;
-    done = true;
-    complete.parentNode.removeChild(complete);
-  }
-  function pick() {
-    insert(sel.options[sel.selectedIndex].text);
-    close();
-    setTimeout(function(){editor.focus();}, 50);
-  }
-  connect(sel, "blur", close);
-  connect(sel, "keydown", function(event) {
-    var code = event.keyCode;
-    // Enter and space
-    if (code == 13 || code == 32) {event.stop(); pick();}
-    // Escape
-    else if (code == 27) {event.stop(); close(); editor.focus();}
-    else if (code != 38 && code != 40) {close(); editor.focus(); setTimeout(startComplete, 50);}
-  });
-  connect(sel, "dblclick", pick);
-
-  sel.focus();
-  // Opera sometimes ignores focusing a freshly created node
-  if (window.opera) setTimeout(function(){if (!done) sel.focus();}, 100);
-  return true;
-}
-
-var stringProps = ("charAt charCodeAt indexOf lastIndexOf substring substr slice trim trimLeft trimRight " +
+  var stringProps = ("charAt charCodeAt indexOf lastIndexOf substring substr slice trim trimLeft trimRight " +
                      "toUpperCase toLowerCase split concat match replace search").split(" ");
-var arrayProps = ("length concat join splice push pop shift unshift slice reverse sort indexOf " +
+  var arrayProps = ("length concat join splice push pop shift unshift slice reverse sort indexOf " +
                     "lastIndexOf every some filter forEach map reduce reduceRight ").split(" ");
-var funcProps = ("_() __() __checked_selected_helper() __construct() __destruct() __get_option() " +
+  var funcProps = "prototype apply call bind".split(" ");
+//  var keywords = ("break case catch continue debugger default delete do else false finally for function " +
+//                  "if in instanceof new null return switch throw true try typeof var void while with").split(" ");
+var keywords = ("and or xor __FILE__ exception" +
+"_() __() __checked_selected_helper() __construct() __destruct() __get_option() " +
 "__ngettext() __ngettext_noop() __set() __tostring() _add_themes_utility_last() _added() " +
 "_admin_notice_multisite_activate_plugins_page() _admin_notice_post_locked() _admin_search_query() _block() _blockheader() _c() " +
 "_changed() _check() _check_timeout() _checkcode() _close_comments_for_old_post() _close_comments_for_old_posts() " +
@@ -784,8 +730,7 @@ var funcProps = ("_() __() __checked_selected_helper() __construct() __destruct(
 "wordwrap() xml_error_string() xml_get_current_byte_index() xml_get_current_column_number() xml_get_current_line_number() xml_get_error_code() " +
 "xml_parse() xml_parse_into_struct() xml_parser_create() xml_parser_create_ns() xml_parser_free() xml_parser_set_option() " +
 "xml_set_character_data_handler() xml_set_default_handler() xml_set_element_handler() xml_set_end_namespace_decl_handler() xml_set_object() xml_set_start_namespace_decl_handler() " +
-"zend_version() ").split(" ");
-var keywords = ("and or xor __FILE__ exception" +
+"zend_version() " +
 					"__LINE__ array() as break case" +
 					"class const continue declare default" +
 					"die() do echo() else elseif" +
@@ -800,39 +745,39 @@ var keywords = ("and or xor __FILE__ exception" +
 					"protected abstract clone try catch" +
 					"throw this final __NAMESPACE__ namespace __DIR__").split(" ");
 
-function getCompletions(token, context) {
-  var found = [], start = token.string;
-  function maybeAdd(str) {
-    if (str.indexOf(start) == 0) found.push(str);
-  }
-  function gatherCompletions(obj) {
-    if (typeof obj == "string") forEach(stringProps, maybeAdd);
-    else if (obj instanceof Array) forEach(arrayProps, maybeAdd);
-    else if (obj instanceof Function) forEach(funcProps, maybeAdd);
-    for (var name in obj) maybeAdd(name);
-  }
+  function getCompletions(token, context) {
+    var found = [], start = token.string;
+    function maybeAdd(str) {
+      if (str.indexOf(start) == 0 && !arrayContains(found, str)) found.push(str);
+    }
+    function gatherCompletions(obj) {
+      if (typeof obj == "string") forEach(stringProps, maybeAdd);
+      else if (obj instanceof Array) forEach(arrayProps, maybeAdd);
+      else if (obj instanceof Function) forEach(funcProps, maybeAdd);
+      for (var name in obj) maybeAdd(name);
+    }
 
-  if (context) {
-    // If this is a property, see if it belongs to some object we can
-    // find in the current environment.
-    var obj = context.pop(), base;
-    if (obj.className == "variable")
-      base = window[obj.string];
-    else if (obj.className == "string")
-      base = "";
-    else if (obj.className == "atom")
-      base = 1;
-    while (base != null && context.length)
-      base = base[context.pop().string];
-    if (base != null) gatherCompletions(base);
+    if (context) {
+      // If this is a property, see if it belongs to some object we can
+      // find in the current environment.
+      var obj = context.pop(), base;
+      if (obj.className == "variable")
+        base = window[obj.string];
+      else if (obj.className == "string")
+        base = "";
+      else if (obj.className == "atom")
+        base = 1;
+      while (base != null && context.length)
+        base = base[context.pop().string];
+      if (base != null) gatherCompletions(base);
+    }
+    else {
+      // If not, just look in the window object and any local scope
+      // (reading into JS mode internals to get at the local variables)
+      for (var v = token.state.localVars; v; v = v.next) maybeAdd(v.name);
+      gatherCompletions(window);
+      forEach(keywords, maybeAdd);
+    }
+    return found;
   }
-  else {
-    // If not, just look in the window object and any local scope
-    // (reading into JS mode internals to get at the local variables)
-    for (var v = token.state.localVars; v; v = v.next) maybeAdd(v.name);
-    //gatherCompletions(window);
-    forEach(funcProps, maybeAdd);
-    forEach(keywords, maybeAdd);
-  }
-  return found;
-}
+})();
