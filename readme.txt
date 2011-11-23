@@ -3,8 +3,8 @@ Contributors: redcocker
 Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
-Tested up to: 3.2.1
-Stable tag: 0.4
+Tested up to: 3.3
+Stable tag: 0.4.5
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -16,7 +16,7 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 
 * Highlight sourcecodes in theme and plugin editor on the dashboard.
 * Based on Marijn Haverbeke's "[CodeMirror](http://codemirror.net/ "CodeMirrorr")" JavaScript library.
-* Built-in 6 themes.
+* Built-in 8 themes.
 * Useful toolbar which includes search/replace features.
 * Full-screen editing.
 * Auto-complete.
@@ -59,6 +59,13 @@ Note: Auto-omplete can't work in the "fullscreen mode".
 
 == Changelog ==
 
+= 0.4.5 =
+* Added new theme "monokai" and "rubyblue".
+* Added "Update File" button into the toolbar.
+* Renewed "Auto-complete" function.
+* Modified the processing of "Search".
+* Updated CodeMirror to ver. 2.18.
+
 = 0.4 =
 * Updated CodeMirror to ver. 2.16-22(including important bug fixes for IE users).
 * Added new variable that has version info of CodeMirror.
@@ -85,6 +92,9 @@ Note: Auto-omplete can't work in the "fullscreen mode".
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.4.5 =
+This version has new features and changes.
 
 = 0.4 =
 This version has new version of CodeMirror(including important bug fixes for IE users).
