@@ -1,18 +1,18 @@
-# Copyright (C) 2010 CodeMirror for CodeEditor
+# Copyright (C) 2012 CodeMirror for CodeEditor
 # This file is distributed under the same license as the CodeMirror for CodeEditor package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CodeMirror for CodeEditor 0.4.2\n"
+"Project-Id-Version: CodeMirror for CodeEditor 0.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/codemirror-for-codeeditor\n"
-"POT-Creation-Date: 2011-11-01 18:24:47+00:00\n"
+"POT-Creation-Date: 2012-01-12 06:09:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: codemirror-for-codeeditor.php:110
+#: codemirror-for-codeeditor.php:125
 msgid ""
 "CodeMirror for CodeEditor has successfully created new DB table.<br />If you "
 "upgraded to this version, some setting options may be added or reset to the "
@@ -21,190 +21,179 @@ msgid ""
 "CodeEditor now. Once you save your settings, this message will be cleared."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:124
+#: codemirror-for-codeeditor.php:139
 msgid "Settings"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:318
+#: codemirror-for-codeeditor.php:286
 msgid "Theme: "
 msgstr ""
 
-#: codemirror-for-codeeditor.php:329
-msgid "Search"
-msgstr ""
-
-#: codemirror-for-codeeditor.php:329
-msgid "with"
-msgstr ""
-
-#: codemirror-for-codeeditor.php:329
-msgid "Replace"
-msgstr ""
-
-#: codemirror-for-codeeditor.php:329
-msgid "Replace All"
-msgstr ""
-
-#: codemirror-for-codeeditor.php:329
-msgid "Clear"
-msgstr ""
-
-#: codemirror-for-codeeditor.php:329
+#: codemirror-for-codeeditor.php:297
 msgid "Update File"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:382
+#: codemirror-for-codeeditor.php:350
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:431
+#: codemirror-for-codeeditor.php:404
 msgid ""
 "Invalid value. Settings could not be saved.<br />Your \"Gutter Size\" must "
 "be entered in numbers."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:434
+#: codemirror-for-codeeditor.php:407
 msgid ""
 "Invalid value. Settings could not be saved.<br />Your \"Tab size\" must be "
 "entered in numbers."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:440
+#: codemirror-for-codeeditor.php:413
 msgid "Settings saved."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:449
+#: codemirror-for-codeeditor.php:422
 msgid ""
 "All settings were reset. Please <a href=\"options-general.php?"
 "page=codemirror-for-codeeditor-options\">reload the page</a>."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:459
+#: codemirror-for-codeeditor.php:432
 msgid "1. Settings"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:462
+#: codemirror-for-codeeditor.php:435
 msgid "Highlight sourcecodes"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:464 codemirror-for-codeeditor.php:486
-#: codemirror-for-codeeditor.php:493 codemirror-for-codeeditor.php:510
-#: codemirror-for-codeeditor.php:524 codemirror-for-codeeditor.php:554
-#: codemirror-for-codeeditor.php:561
+#: codemirror-for-codeeditor.php:437 codemirror-for-codeeditor.php:460
+#: codemirror-for-codeeditor.php:467 codemirror-for-codeeditor.php:484
+#: codemirror-for-codeeditor.php:498 codemirror-for-codeeditor.php:530
+#: codemirror-for-codeeditor.php:537 codemirror-for-codeeditor.php:544
 msgid "Enable"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:465
+#: codemirror-for-codeeditor.php:438
 msgid "Enable/Disable code highlighting."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:469
+#: codemirror-for-codeeditor.php:442
 msgid "Theme"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:480
+#: codemirror-for-codeeditor.php:454
 msgid "Select a theme.<br />You can also select another theme on the editor."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:484
+#: codemirror-for-codeeditor.php:458
 msgid "Show linenumber"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:487
+#: codemirror-for-codeeditor.php:461
 msgid "Show/Hide linenumber."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:491
+#: codemirror-for-codeeditor.php:465
 msgid "Show gutter"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:494
+#: codemirror-for-codeeditor.php:468
 msgid ""
 "Show/Hide gutter. You can set a marker icon on the gutter by clicking "
 "linenumber.<br />Even when linenumber is hidden, the gutter will be shown."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:498
+#: codemirror-for-codeeditor.php:472
 msgid "Gutter size"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:503
+#: codemirror-for-codeeditor.php:477
 msgid "pixel"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:504
+#: codemirror-for-codeeditor.php:478
 msgid "You can resize the row for the linenumber and gutter."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:508
+#: codemirror-for-codeeditor.php:482
 msgid "Fixed gutter"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:511
+#: codemirror-for-codeeditor.php:485
 msgid ""
 "When you scroll the textarea horizontally, the gutter will stay visible."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:515
+#: codemirror-for-codeeditor.php:489
 msgid "Tab size"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:518
+#: codemirror-for-codeeditor.php:492
 msgid ""
 "Set the tab(indent) size by the number of space characters.<br />For detail, "
 "refer to <a href=\"http://codemirror.net/manual.html#option_indentUnit\">"
-"\"indentUnit\" section</a> in the manual."
+"\"indentUnit\" section</a> and <a href=\"http://codemirror.net/manual."
+"html#option_tabSize\">\"tabSize\" section</a> in the manual."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:522
+#: codemirror-for-codeeditor.php:496
 msgid "Indent with tabs"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:525
+#: codemirror-for-codeeditor.php:499
 msgid ""
 "The leading every multiple of 8 spaces will be replaced with tabs.<br />For "
 "detail, refer to <a href=\"http://codemirror.net/manual."
 "html#option_indentWithTabs\">\"indentWithTabs\" section</a> in the manual."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:529
+#: codemirror-for-codeeditor.php:503
 msgid "Tab mode"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:537
+#: codemirror-for-codeeditor.php:511
 msgid ""
 "Determine what happens when the tab key is pressed.<br />For detail, refer "
 "to <a href=\"http://codemirror.net/manual.html#option_tabMode\">\"tabMode\" "
 "section</a> in the manual."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:541
+#: codemirror-for-codeeditor.php:515
 msgid "Indentation for a new line"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:548
+#: codemirror-for-codeeditor.php:522
 msgid ""
 "Determines whether and how new lines are indented.<br />For detail, refer to "
 "<a href=\"http://codemirror.net/manual.html#option_enterMode\">\"enterMode\" "
 "section</a> in the manual."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:552
+#: codemirror-for-codeeditor.php:528
+msgid "Visible tabs"
+msgstr ""
+
+#: codemirror-for-codeeditor.php:531
+msgid "After enabled, Tabs will be replaced with the markers and be visible."
+msgstr ""
+
+#: codemirror-for-codeeditor.php:535
 msgid "Highlight pair of brackets"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:555
+#: codemirror-for-codeeditor.php:538
 msgid ""
-"The pair of brackets will be highlighted when a bracket is selected with "
-"your mouse.<br />For detail, refer to <a href=\"http://codemirror.net/manual."
-"html#matchBrackets\">\"matchBrackets\" section</a> in the manual."
+"The pair of brackets will be highlighted when the cursor is placed before or "
+"after a bracket.<br />For detail, refer to <a href=\"http://codemirror.net/"
+"manual.html#matchBrackets\">\"matchBrackets\" section</a> in the manual."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:559
+#: codemirror-for-codeeditor.php:542
 msgid "Auto indentation"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:562
+#: codemirror-for-codeeditor.php:545
 msgid ""
 "When some constructional characters are typed, they will be indented "
 "automatically and automatically.<br/ >For example \"{ }\" in \"{ }\".<br /"
@@ -212,83 +201,83 @@ msgid ""
 "html#option_electricChars\">\"electricChars\" section</a> in the manual."
 msgstr ""
 
-#: codemirror-for-codeeditor.php:567
+#: codemirror-for-codeeditor.php:550
 msgid "Save Changes"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:570
+#: codemirror-for-codeeditor.php:553
 msgid "2. Restore all settings to default"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:575
+#: codemirror-for-codeeditor.php:558
 msgid "Reset All Settings"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:578
+#: codemirror-for-codeeditor.php:561
 msgid "3. Your System Info"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:581
+#: codemirror-for-codeeditor.php:564
 msgid "Server OS:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:582
+#: codemirror-for-codeeditor.php:565
 msgid "PHP version:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:583
+#: codemirror-for-codeeditor.php:566
 msgid "MySQL version:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:584
+#: codemirror-for-codeeditor.php:567
 msgid "WordPress version:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:585
+#: codemirror-for-codeeditor.php:568
 msgid "Site URL:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:586
+#: codemirror-for-codeeditor.php:569
 msgid "WordPress URL:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:587
+#: codemirror-for-codeeditor.php:570
 msgid "WordPress language:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:588
+#: codemirror-for-codeeditor.php:571
 msgid "WordPress character set:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:589
+#: codemirror-for-codeeditor.php:572
 msgid "WordPress theme:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:590
+#: codemirror-for-codeeditor.php:573
 msgid "CodeMirror for CodeEditor version:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:591
+#: codemirror-for-codeeditor.php:574
 msgid "CodeMirror for CodeEditor DB version:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:593
+#: codemirror-for-codeeditor.php:576
 msgid "CodeMirror version:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:594
+#: codemirror-for-codeeditor.php:577
 msgid "CodeMirror for CodeEditor URL:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:595
+#: codemirror-for-codeeditor.php:578
 msgid "Your browser:"
 msgstr ""
 
-#: codemirror-for-codeeditor.php:599
+#: codemirror-for-codeeditor.php:582
 msgid "To report a bug ,submit requests and feedback, "
 msgstr ""
 
-#: codemirror-for-codeeditor.php:599
+#: codemirror-for-codeeditor.php:582
 msgid ""
 "Use <a href=\"http://wordpress.org/tags/codemirror-for-codeeditor?forum_id=10"
 "\">Forum</a> or <a href=\"http://www.near-mint.com/blog/contact\">Mail From</"

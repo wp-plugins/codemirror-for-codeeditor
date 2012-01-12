@@ -3,8 +3,8 @@ Contributors: redcocker
 Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
-Tested up to: 3.3
-Stable tag: 0.4.5
+Tested up to: 3.3.1
+Stable tag: 0.5
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -29,6 +29,10 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 * Javascript
 * (X)HTML
 
+= Note =
+
+Ver. 0.5 or higher has the AJAX "Search and Replace" function. If you like old toolbar, please use [ver. 0.4.5](http://wordpress.org/extend/plugins/codemirror-for-codeeditor/download/ "ver. 0.4.5").
+
 = Recommended plugin =
 
 * "[WP SyntaxHighlighter](http://wordpress.org/extend/plugins/wp-syntaxhighlighter/ "WP SyntaxHighlighter")" can highlight sourcecodes on your front-end(posts, pages, comments).
@@ -43,21 +47,34 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 
 = Usage =
 
-* You can select a theme, search and replace on the toolbar.
+* You can select a theme on the toolbar.
 * Place the cursor in the textarea and press "Esc" or "F11" key to chage to the "fullscreen mode".
+* Search and replace
+ Search: Press Ctrl-F / Cmd-F
+ Find next: Press Ctrl-G / Cmd-G
+ Find previous: Press Shift-Ctrl-G / Cmd-Option-G
+ Replace: Shift-Ctrl-F / Cmd-Option-F (Run this after searching.)
+ Replace all: Shift-Ctrl-R / Shift-Cmd-Option-F (Run this after searching.)
 * Press "Ctrl - Space" to activate Auto-omplete.
 * Press "Ctrl" - Z" to undo the previous change.
 * Press "Ctrl" - Y" to redo.
 
-Note: Auto-omplete can't work in the "fullscreen mode".
+Note: "Search & replace" and "Auto-omplete" can't work in the "fullscreen mode".
 
 == Screenshots ==
 
 1. This is a highlighted code in the plugin editor.
-2. This is Auto-omplete Demo.
-3. This is setting panel.
+2. This is AJAX search dialog.
+3. This is Auto-omplete Demo.
+4. This is setting panel.
 
 == Changelog ==
+
+= 0.5 =
+* Updated CodeMirror to ver. 2.2-39.
+* Supports "visible tab".
+* New "Search" and "Replace" functions.
+* Fix a bug: Using bloginfo() in the wrong way.
 
 = 0.4.5 =
 * Added new theme "monokai" and "rubyblue".
@@ -92,6 +109,9 @@ Note: Auto-omplete can't work in the "fullscreen mode".
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.5 =
+This version has new features and a bug fix.
 
 = 0.4.5 =
 This version has new features and changes.
