@@ -49,12 +49,11 @@ Ver. 0.5 or higher has the AJAX "Search and Replace" function. If you like old t
 
 * You can select a theme on the toolbar.
 * Place the cursor in the textarea and press "Esc" or "F11" key to chage to the "fullscreen mode".
-* Search and replace
- Search: Press Ctrl-F / Cmd-F
- Find next: Press Ctrl-G / Cmd-G
- Find previous: Press Shift-Ctrl-G / Cmd-Option-G
- Replace: Shift-Ctrl-F / Cmd-Option-F (Run this after searching.)
- Replace all: Shift-Ctrl-R / Shift-Cmd-Option-F (Run this after searching.)
+* Search: Press Ctrl-F / Cmd-F
+* Find next: Press Ctrl-G / Cmd-G
+* Find previous: Press Shift-Ctrl-G / Cmd-Option-G
+* Replace: Shift-Ctrl-F / Cmd-Option-F (Run this after searching.)
+* Replace all: Shift-Ctrl-R / Shift-Cmd-Option-F (Run this after searching.)
 * Press "Ctrl - Space" to activate Auto-omplete.
 * Press "Ctrl" - Z" to undo the previous change.
 * Press "Ctrl" - Y" to redo.
