@@ -42,8 +42,6 @@
   var arrayProps = ("length concat join splice push pop shift unshift slice reverse sort indexOf " +
                     "lastIndexOf every some filter forEach map reduce reduceRight ").split(" ");
   var funcProps = "prototype apply call bind".split(" ");
-//  var keywords = ("break case catch continue debugger default delete do else false finally for function " +
-//                  "if in instanceof new null return switch throw true try typeof var void while with").split(" ");
 var keywords = ("and or xor __FILE__ exception" +
 "_() __() __checked_selected_helper() __construct() __destruct() __get_option() " +
 "__ngettext() __ngettext_noop() __set() __tostring() _add_themes_utility_last() _added() " +
