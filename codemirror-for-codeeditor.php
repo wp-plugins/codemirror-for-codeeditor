@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.5
+Version: 0.5.3
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2012/1/12
+Last modified: 2012/1/18
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -37,9 +37,9 @@ CodeMirror2 is licensed under the MIT compatible license.
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.5";
-	var $cfc_db_ver = "0.5";
-	var $cfc_lib_ver = "2.2-39";
+	var $cfc_ver = "0.5.3";
+	var $cfc_db_ver = "0.5.3";
+	var $cfc_lib_ver = "2.2-55";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -64,11 +64,13 @@ class CodeMirror_for_CodeEditor {
 		$this->cfc_setting_opt = array(
 			"codemirror_enable" => 1,
 			"theme" => "default",
+			"keymap" => "normal",
 			"lineNumbers" => "true",
 			"gutter" => "false",
 			"gutter_size_prefix" => "+",
 			"gutter_size" => "0",
 			"fixedGutter" => "false",
+			"hlLine" => 0,
 			"indentUnit" => "4",
 			"indentWithTabs" => "false",
 			"tabMode" => "shift",
@@ -76,6 +78,7 @@ class CodeMirror_for_CodeEditor {
 			"visible_tabs" => 0,
 			"matchBrackets" => "true",
 			"electricChars" => "false",
+			"show_search" => 1,
 			);
 		// Store in DB
 		add_option('cfc_setting_opt', $this->cfc_setting_opt);
@@ -93,10 +96,18 @@ class CodeMirror_for_CodeEditor {
 				$this->cfc_setting_array();
 				$updated_count = $updated_count + 1;
 			}
-
 			// For update from ver.0.3 or older
 			if ($current_checkver_stamp && version_compare($current_checkver_stamp, "0.3", "<=")) {
 				$this->cfc_setting_opt['visible_tabs'] = 0;
+				update_option('cfc_setting_opt', $this->cfc_setting_opt);
+				$updated_count = $updated_count + 1;
+			}
+			// For update from ver.0.5 or older
+			if ($current_checkver_stamp && version_compare($current_checkver_stamp, "0.5", "<=")) {
+				$this->cfc_setting_opt['keymap'] = "normal";
+				$this->cfc_setting_opt['hlLine'] = 0;
+				$this->cfc_setting_opt['show_search'] = 1;
+
 				update_option('cfc_setting_opt', $this->cfc_setting_opt);
 				$updated_count = $updated_count + 1;
 			}
@@ -176,6 +187,12 @@ class CodeMirror_for_CodeEditor {
 		wp_enqueue_script('codemirror-dialog-js', $this->cfc_plugin_url.'codemirror/lib/util/dialog.js', false, $this->cfc_lib_ver);
 		wp_enqueue_script('codemirror-searchcursor-js', $this->cfc_plugin_url.'codemirror/lib/util/searchcursor.js', false, $this->cfc_lib_ver);
 		wp_enqueue_script('codemirror-search-js', $this->cfc_plugin_url.'codemirror/lib/util/search.js', false, $this->cfc_lib_ver);
+		if ($this->cfc_setting_opt['keymap'] == "emacs") {
+			wp_enqueue_script('codemirror-emacs-js', $this->cfc_plugin_url.'codemirror/keymap/emacs.js', false, $this->cfc_lib_ver);
+		}
+		if ($this->cfc_setting_opt['keymap'] == "vim") {
+			wp_enqueue_script('codemirror-emacs-js', $this->cfc_plugin_url.'codemirror/keymap/vim.js', false, $this->cfc_lib_ver);
+		}
 	}
 
 	// Add scripts into the footer
@@ -193,8 +210,14 @@ class CodeMirror_for_CodeEditor {
 		echo "\n<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for CodeMirror Begin -->
 <script type=\"text/javascript\">
 var editor = CodeMirror.fromTextArea(document.getElementById(\"newcontent\"), {
-	theme: \"".$this->cfc_setting_opt['theme']."\",
-	lineNumbers: ".$this->cfc_setting_opt['lineNumbers'].",
+	theme: \"".$this->cfc_setting_opt['theme']."\",\n";
+		if ($this->cfc_setting_opt['keymap'] == "emacs") {
+			echo "	keyMap: \"emacs\",\n";
+		}
+		if ($this->cfc_setting_opt['keymap'] == "vim") {
+			echo "	keyMap: \"vim\",\n";
+		}
+		echo "	lineNumbers: ".$this->cfc_setting_opt['lineNumbers'].",
         matchBrackets: ".$this->cfc_setting_opt['matchBrackets'].",\n";
 		if ($this->cfc_setting_opt['codemirror_enable'] == 1) {
 			if ($extension == "css") {
@@ -242,11 +265,20 @@ var editor = CodeMirror.fromTextArea(document.getElementById(\"newcontent\"), {
 				return CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
 			}
 		}
-	},
+	},\n";
+		if ($this->cfc_setting_opt['hlLine'] == 1) {
+		echo "	onCursorActivity: function() {
+		editor.setLineClass(hlLine, null);
+		hlLine = editor.setLineClass(editor.getCursor().line, \"activeline\");
+	}
 });
 
-function selectTheme(node) {
-	var theme = node.options[node.selectedIndex].innerHTML;
+var hlLine = editor.setLineClass(0, \"activeline\");\n\n";
+		} else {
+			echo "});\n\n";
+		}
+		echo "function selectTheme(node) {
+	var theme = node.options[node.selectedIndex].value;
 	var editorDiv = jQuery('.CodeMirror-scroll');
 	editor.setOption(\"theme\", theme);
 }
@@ -275,28 +307,87 @@ function toggleFullscreenEditing(){
 <!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for toolbar Begin -->\n";
 		?>
 <script type="text/javascript">
+var lastPos = null, lastQuery = null, marked = [];
+
+function unmark() {
+	for (var i = 0; i < marked.length; ++i) marked[i].clear();
+	marked.length = 0;
+}
+
+function search() {
+	unmark();                     
+	var text = document.getElementById("query").value;
+	if (!text) return;
+	for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
+		marked.push(editor.markText(cursor.from(), cursor.to(), "searched"));
+
+	if (lastQuery != text) lastPos = null;
+	var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
+	if (!cursor.findNext()) {
+		cursor = editor.getSearchCursor(text);
+		if (!cursor.findNext()) return;
+	}
+	editor.setSelection(cursor.from(), cursor.to());
+	lastQuery = text; lastPos = cursor.to();
+}
+
+function replace() {
+	unmark();
+	var text = document.getElementById("query").value,
+	replace = document.getElementById("replace_str").value;
+	if (!text) return;
+	var cursor = editor.getSearchCursor(text);
+	cursor.findNext();
+	if (!cursor) return;
+	editor.replaceRange(replace, cursor.from(), cursor.to());
+	editor.setSelection(cursor.from(), cursor.to());
+}
+
+function replace_all() {
+	unmark();
+	var text = document.getElementById("query").value,
+	  replace = document.getElementById("replace_str").value;
+	if (!text) return;
+	for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
+		cursor.replace(replace);
+}
+
+function clear_result(){
+	lastQuery = null;
+	lastPos = null;
+	unmark();
+	document.getElementById("query").value = '';
+	document.getElementById("replace_str").value = '';
+}
+
 function save_all() {
 	document.getElementById('submit').click();
 }
 </script>
-		<?php
+<?php
 		echo "<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for toolbar End -->
 <!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for creating toolbar Begin -->
 <script type=\"text/javascript\">\n";
 		echo 'jQuery("#newcontent").after("<div id =\"cfc-toolbar\"><label>'.__("Theme: ", "cfc_lang").'</label><select id=\"cfc-theme\" onchange=\"selectTheme(this)\">';
 
-		$theme_list = array("default", "cobalt", "eclipse", "elegant", "monokai", "neat", "night", "rubyblue");
+		$theme_list = array("Default", "Cobalt", "Eclipse", "Elegant", "Monokai", "Neat", "Night", "Rubyblue");
 		foreach ($theme_list as $val) {
 			if ($val == $this->cfc_setting_opt['theme']) {
-				echo '<option value=\"'.$val.'\" selected=\"selected\">'.$val.'</option>';
+				echo '<option value=\"'.strtolower($val).'\" selected=\"selected\">'.$val.'</option>';
 			} else {
-				echo '<option value=\"'.$val.'\">'.$val.'</option>';
+				echo '<option value=\"'.strtolower($val).'\">'.$val.'</option>';
 			}
 		}
 
-		echo '</select> <button type=\"button\" class=\"button-primary cfc-save\" onclick=\"save_all()\">'.__("Update File", "cfc_lang").'</button></div>");
+		echo '</select> ';
+
+		if ($this->cfc_setting_opt['show_search'] == 1) {
+			echo '<input type=\"text\" size=\"12\" id=\"query\" /><button type=\"button\" onclick=\"search()\">'.__("Search", "cfc_lang").'</button> '.__("with", "cfc_lang").' <input type=\"text\" size=\"12\" id=\"replace_str\" /><button type=\"button\" onclick=\"replace()\">'.__("Replace", "cfc_lang").'</button> <button type=\"button\" onclick=\"replace_all()\">'.__("Replace All", "cfc_lang").'</button> <button type=\"button\" onclick=\"clear_result()\">'.__("Clear", "cfc_lang").'</button> ';
+		}
+
+		echo '<button type=\"button\" class=\"button-primary cfc-save\" onclick=\"save_all()\">'.__("Update File", "cfc_lang").'</button></div>");
 </script>';
-		echo "<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for creating toolbar End -->\n";
+		echo "\n<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for creating toolbar End -->\n";
 	}
 
 	// Add addtional style into the header
@@ -338,6 +429,9 @@ function save_all() {
 .cm-s-neat {background: #ffffff;}
 .cm-s-night {background: #0a001f;}
 .cm-s-rubyblue {background: #112435;}\n";
+		if ($this->cfc_setting_opt['hlLine'] == 1) {
+			echo ".activeline {background: #f0fcff !important;}\n";
+		}
 		if ($this->cfc_setting_opt['visible_tabs'] == 1) {
 			echo ".cm-tab:after {content: \"\\21e5\"; display: -moz-inline-block; display: -webkit-inline-block; display: inline-block; width: 0px; position: relative; overflow: visible; left: -1.4em; color: #aaa;}\n";
 		}
@@ -359,6 +453,7 @@ function save_all() {
 				$this->cfc_setting_opt['codemirror_enable'] = "0";
 			}
 			$this->cfc_setting_opt['theme'] = $_POST['theme'];
+			$this->cfc_setting_opt['keymap'] = $_POST['keymap'];
 			if ($_POST['lineNumbers'] == "1") {
 				$this->cfc_setting_opt['lineNumbers'] = 'true';
 			} else {
@@ -375,6 +470,11 @@ function save_all() {
 				$this->cfc_setting_opt['fixedGutter'] = 'true';
 			} else {
 				$this->cfc_setting_opt['fixedGutter'] = 'false';
+			}
+			if ($_POST['hlLine'] == 1) {
+				$this->cfc_setting_opt['hlLine'] = 1;
+			} else {
+				$this->cfc_setting_opt['hlLine'] = 0;
 			}
 			$this->cfc_setting_opt['indentUnit'] = $_POST['indentUnit'];
 			if ($_POST['indentWithTabs'] == "1") {
@@ -399,6 +499,14 @@ function save_all() {
 			} else {
 				$this->cfc_setting_opt['electricChars'] = 'false';
 			}
+			if ($_POST['show_search'] == 1) {
+				$this->cfc_setting_opt['show_search'] = 1;
+			} else {
+				$this->cfc_setting_opt['show_search'] = 2;
+			}
+
+
+
 			// Validate values
 			if (!preg_match("/^[0-9]+$/", $this->cfc_setting_opt['gutter_size'])) {
 				wp_die(__("Invalid value. Settings could not be saved.<br />Your \"Gutter Size\" must be entered in numbers.", "cfc_lang"));
@@ -442,16 +550,27 @@ function save_all() {
 				<th scope="row"><?php _e("Theme", "cfc_lang") ?></th>
 				<td>
 					<select name="theme">
-						<option value="default" <?php if ($this->cfc_setting_opt['theme'] == "default") {echo 'selected="selected"';} ?>>default</option>
-						<option value="cobalt" <?php if ($this->cfc_setting_opt['theme'] == "cobalt") {echo 'selected="selected"';} ?>>cobalt</option>
-						<option value="eclipse" <?php if ($this->cfc_setting_opt['theme'] == "eclipse") {echo 'selected="selected"';} ?>>eclipse</option>
-						<option value="elegant" <?php if ($this->cfc_setting_opt['theme'] == "elegant") {echo 'selected="selected"';} ?>>elegant</option>
-						<option value="monokai" <?php if ($this->cfc_setting_opt['theme'] == "monokai") {echo 'selected="selected"';} ?>>monokai</option>
-						<option value="neat" <?php if ($this->cfc_setting_opt['theme'] == "neat") {echo 'selected="selected"';} ?>>neat</option>
-						<option value="night" <?php if ($this->cfc_setting_opt['theme'] == "night") {echo 'selected="selected"';} ?>>night</option>
-						<option value="rubyblue" <?php if ($this->cfc_setting_opt['theme'] == "rubyblue") {echo 'selected="selected"';} ?>>rubyblue</option>
+						<option value="default" <?php if ($this->cfc_setting_opt['theme'] == "default") {echo 'selected="selected"';} ?>><?php _e("Default", "cfc_lang") ?></option>
+						<option value="cobalt" <?php if ($this->cfc_setting_opt['theme'] == "cobalt") {echo 'selected="selected"';} ?>><?php _e("Cobalt", "cfc_lang") ?></option>
+						<option value="eclipse" <?php if ($this->cfc_setting_opt['theme'] == "eclipse") {echo 'selected="selected"';} ?>><?php _e("Eclipse", "cfc_lang") ?></option>
+						<option value="elegant" <?php if ($this->cfc_setting_opt['theme'] == "elegant") {echo 'selected="selected"';} ?>><?php _e("Elegant", "cfc_lang") ?></option>
+						<option value="monokai" <?php if ($this->cfc_setting_opt['theme'] == "monokai") {echo 'selected="selected"';} ?>><?php _e("Monokai", "cfc_lang") ?></option>
+						<option value="neat" <?php if ($this->cfc_setting_opt['theme'] == "neat") {echo 'selected="selected"';} ?>><?php _e("Neat", "cfc_lang") ?></option>
+						<option value="night" <?php if ($this->cfc_setting_opt['theme'] == "night") {echo 'selected="selected"';} ?>><?php _e("Night", "cfc_lang") ?></option>
+						<option value="rubyblue" <?php if ($this->cfc_setting_opt['theme'] == "rubyblue") {echo 'selected="selected"';} ?>><?php _e("Rubyblue", "cfc_lang") ?></option>
 					</select>
 					<p><small><?php _e("Select a theme.<br />You can also select another theme on the editor.", "cfc_lang") ?></small></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e("Keymap", "cfc_lang") ?></th>
+				<td>
+					<select name="keymap">
+						<option value="normal" <?php if ($this->cfc_setting_opt['keymap'] == "normal") {echo 'selected="selected"';} ?>><?php _e("Normal", "cfc_lang") ?></option>
+						<option value="emacs" <?php if ($this->cfc_setting_opt['keymap'] == "emacs") {echo 'selected="selected"';} ?>><?php _e("Emacs", "cfc_lang") ?></option>
+						<option value="vim" <?php if ($this->cfc_setting_opt['keymap'] == "vim") {echo 'selected="selected"';} ?>><?php _e("Vim", "cfc_lang") ?></option>
+					</select>
+					<p><small><?php _e("You can also use commands with Emacs or Vim-like keystrokes", "cfc_lang") ?></small></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -483,6 +602,13 @@ function save_all() {
 				<td>
 					<input type="checkbox" name="fixedGutter" value="1" <?php if ($this->cfc_setting_opt['fixedGutter'] == 'true') {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
 					<p><small><?php _e("When you scroll the textarea horizontally, the gutter will stay visible.", "cfc_lang") ?></small></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e("Highlighting the cursor line", "cfc_lang") ?></th>
+				<td>
+					<input type="checkbox" name="hlLine" value="1" <?php if ($this->cfc_setting_opt['hlLine'] == 1) {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
+					<p><small><?php _e("When this option is enabled, the cursor line will be highlighted.", "cfc_lang") ?></small></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -522,8 +648,6 @@ function save_all() {
 					<p><small><?php _e("Determines whether and how new lines are indented.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_enterMode\">\"enterMode\" section</a> in the manual.", "cfc_lang") ?></small></p>
 				</td>
 			</tr>
-
-
 			<tr valign="top">
 				<th scope="row"><?php _e("Visible tabs", "cfc_lang") ?></th>
 				<td>
@@ -543,6 +667,13 @@ function save_all() {
 				<td>
 					<input type="checkbox" name="electricChars" value="1" <?php if ($this->cfc_setting_opt['electricChars'] == 'true') {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
 					<p><small><?php _e("When some constructional characters are typed, they will be indented automatically and automatically.<br/ >For example \"{ }\" in \"{ }\".<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_electricChars\">\"electricChars\" section</a> in the manual.", "cfc_lang") ?></small></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e("Show Search and Replace box", "cfc_lang") ?></th>
+				<td>
+					<input type="checkbox" name="show_search" value="1" <?php if ($this->cfc_setting_opt['show_search'] == 1) {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
+					<p><small><?php _e("Show/Hide Search and Replace box on the toolbar.", "cfc_lang") ?></small></p>
 				</td>
 			</tr>
 		</table>
