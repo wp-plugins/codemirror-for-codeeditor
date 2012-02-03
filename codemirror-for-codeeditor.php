@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.5.3
+Version: 0.5.5
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2012/1/18
+Last modified: 2012/2/4
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -37,9 +37,9 @@ CodeMirror2 is licensed under the MIT compatible license.
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.5.3";
-	var $cfc_db_ver = "0.5.3";
-	var $cfc_lib_ver = "2.2-55";
+	var $cfc_ver = "0.5.5";
+	var $cfc_db_ver = "0.5.5";
+	var $cfc_lib_ver = "2.21";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -73,8 +73,7 @@ class CodeMirror_for_CodeEditor {
 			"hlLine" => 0,
 			"indentUnit" => "4",
 			"indentWithTabs" => "false",
-			"tabMode" => "shift",
-			"enterMode" => "keep",
+			"smartIndent" => "true",
 			"visible_tabs" => 0,
 			"matchBrackets" => "true",
 			"electricChars" => "false",
@@ -107,6 +106,15 @@ class CodeMirror_for_CodeEditor {
 				$this->cfc_setting_opt['keymap'] = "normal";
 				$this->cfc_setting_opt['hlLine'] = 0;
 				$this->cfc_setting_opt['show_search'] = 1;
+
+				update_option('cfc_setting_opt', $this->cfc_setting_opt);
+				$updated_count = $updated_count + 1;
+			}
+			// For update from ver.0.5.3 or older
+			if ($current_checkver_stamp && version_compare($current_checkver_stamp, "0.5.3", "<=")) {
+				$this->cfc_setting_opt['smartIndent'] = "true";
+				unset($this->cfc_setting_opt['tabMode']);
+				unset($this->cfc_setting_opt['enterMode']);
 
 				update_option('cfc_setting_opt', $this->cfc_setting_opt);
 				$updated_count = $updated_count + 1;
@@ -235,10 +243,9 @@ var editor = CodeMirror.fromTextArea(document.getElementById(\"newcontent\"), {
 			echo "	mode: \"text/plain\",\n";
 		}
         	echo "	indentUnit: ".$this->cfc_setting_opt['indentUnit'].",
+	smartIndent: ".$this->cfc_setting_opt['smartIndent'].",
 	tabSize: ".$this->cfc_setting_opt['indentUnit'].",
         indentWithTabs: ".$this->cfc_setting_opt['indentWithTabs'].",
-        enterMode: \"".$this->cfc_setting_opt['enterMode']."\",
-        tabMode: \"".$this->cfc_setting_opt['tabMode']."\",
 	gutter: ".$this->cfc_setting_opt['gutter'].",
 	fixedGutter: ".$this->cfc_setting_opt['fixedGutter'].",
 	electricChars: ".$this->cfc_setting_opt['electricChars'].",\n";
@@ -301,6 +308,9 @@ function toggleFullscreenEditing(){
 		editor.refresh();
 	}
 }
+
+var formMain = document.getElementById('template');
+formMain.removeAttribute('id');
 </script>";
 
 		echo "\n<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Scripts for CodeMirror End -->
@@ -403,7 +413,7 @@ function save_all() {
 		}
 		echo "\n<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Differential css Begin -->\n";
 		echo "<style type=\"text/css\">
-.CodeMirror {border: 1px solid #aaa;}
+.CodeMirror {border: 1px solid #aaa; margin-right: 200px;}
 .CodeMirror-scroll {height: 600px; overflow: auto; margin-right: 0 !important;}\n";
 		if ($this->cfc_setting_opt['gutter'] == 'true' && $this->cfc_setting_opt['lineNumbers'] == 'true') {
 			echo ".CodeMirror-gutter {width: ".$gutter_width_full."px; !important;}
@@ -415,12 +425,11 @@ function save_all() {
 			echo ".CodeMirror-gutter {width: ".$gutter_width_small."px !important;}
 .CodeMirror-gutter-text {width: ".($gutter_width_small - 10)."px !important;}\n";
 		}
-		echo "#template div {margin-right: 105px;}
-.searched {background: yellow;}
+		echo ".searched {background: yellow;}
 .fullscreen {height: 89%; right: 0; position: fixed; top: 80px; width: 100%; z-index: 100;}
 #cfc-toolbar {margin-bottom: 2px;}
 .cfc-toolbar-full {background-color: #ffffff; min-height: 85px; position: fixed; top: 50px; z-index: 100;}
-.cfc-save {float: right;}
+.cfc-save {margin-right: 10px; float: right;}
 .cm-s-cobalt {background: #002240;}
 .cm-s-default {background: #ffffff;}
 .cm-s-eclipse {background: #ffffff;}
@@ -482,8 +491,11 @@ function save_all() {
 			} else {
 				$this->cfc_setting_opt['indentWithTabs'] = 'false';
 			}
-			$this->cfc_setting_opt['tabMode'] = $_POST['tabMode'];
-			$this->cfc_setting_opt['enterMode'] = $_POST['enterMode'];
+			if ($_POST['smartIndent'] == "1") {
+				$this->cfc_setting_opt['smartIndent'] = 'true';
+			} else {
+				$this->cfc_setting_opt['smartIndent'] = 'false';
+			}
 			if ($_POST['visible_tabs'] == 1) {
 				$this->cfc_setting_opt['visible_tabs'] = 1;
 			} else {
@@ -504,9 +516,6 @@ function save_all() {
 			} else {
 				$this->cfc_setting_opt['show_search'] = 2;
 			}
-
-
-
 			// Validate values
 			if (!preg_match("/^[0-9]+$/", $this->cfc_setting_opt['gutter_size'])) {
 				wp_die(__("Invalid value. Settings could not be saved.<br />Your \"Gutter Size\" must be entered in numbers.", "cfc_lang"));
@@ -626,26 +635,10 @@ function save_all() {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e("Tab mode", "cfc_lang") ?></th> 
+				<th scope="row"><?php _e("Smart indent", "cfc_lang") ?></th>
 				<td>
-					<select name="tabMode">
-						<option value="classic" <?php if ($this->cfc_setting_opt['tabMode'] == "classic") {echo 'selected="selected"';} ?>>classic</option>
-						<option value="shift" <?php if ($this->cfc_setting_opt['tabMode'] == "shift") {echo 'selected="selected"';} ?>>shift</option>
-						<option value="indent" <?php if ($this->cfc_setting_opt['tabMode'] == "indent") {echo 'selected="selected"';} ?>>indent</option>
-						<option value="default" <?php if ($this->cfc_setting_opt['tabMode'] == "default") {echo 'selected="selected"';} ?>>default</option>
-					</select>
-					<p><small><?php _e("Determine what happens when the tab key is pressed.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_tabMode\">\"tabMode\" section</a> in the manual.", "cfc_lang") ?></small></p>
-				</td>
-			</tr>
-			<tr valign="top">
-				<th scope="row"><?php _e("Indentation for a new line", "cfc_lang") ?></th>
-				<td>
-					<select name="enterMode">
-						<option value="indent" <?php if ($this->cfc_setting_opt['enterMode'] == "indent") {echo 'selected="selected"';} ?>>indent</option>
-						<option value="keep" <?php if ($this->cfc_setting_opt['enterMode'] == "keep") {echo 'selected="selected"';} ?>>keep</option>
-						<option value="flat" <?php if ($this->cfc_setting_opt['enterMode'] == "flat") {echo 'selected="selected"';} ?>>flat</option>
-					</select>
-					<p><small><?php _e("Determines whether and how new lines are indented.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_enterMode\">\"enterMode\" section</a> in the manual.", "cfc_lang") ?></small></p>
+					<input type="checkbox" name="smartIndent" value="1" <?php if ($this->cfc_setting_opt['smartIndent'] == 'true') {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
+					<p><small><?php _e("When this option is enabled, this plgin will give a context-sensitive indent to a new line.<br />When it is disabled, it will give an indent the same as the line before to a new line.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_smartIndent\">\"smartIndent\" section</a> in the manual.", "cfc_lang") ?></small></p>
 				</td>
 			</tr>
 			<tr valign="top">

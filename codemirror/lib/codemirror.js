@@ -1,3 +1,5 @@
+// CodeMirror version 2.21
+//
 // All functions that need access to the editor's state live inside
 // the CodeMirror function. Below that, at the bottom of the file,
 // some utilities are defined.
@@ -20,17 +22,17 @@ var CodeMirror = (function() {
     // This mess creates the base DOM structure for the editor.
     wrapper.innerHTML =
       '<div style="overflow: hidden; position: relative; width: 3px; height: 0px;">' + // Wraps and hides input textarea
-        '<textarea style="position: absolute; padding: 0; width: 1px;" wrap="off" ' +
+        '<textarea style="position: absolute; padding: 0; width: 1px; height: 1em" wrap="off" ' +
           'autocorrect="off" autocapitalize="off"></textarea></div>' +
       '<div class="CodeMirror-scroll" tabindex="-1">' +
         '<div style="position: relative">' + // Set to the height of the text, causes scrolling
           '<div style="position: relative">' + // Moved around its parent to cover visible view
             '<div class="CodeMirror-gutter"><div class="CodeMirror-gutter-text"></div></div>' +
             // Provides positioning relative to (visible) text origin
-            '<div class="CodeMirror-lines"><div style="position: relative">' +
-              '<div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden"></div>' +
+            '<div class="CodeMirror-lines"><div style="position: relative; z-index: 0">' +
+              '<div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; outline: 5px auto none"></div>' +
               '<pre class="CodeMirror-cursor">&#160;</pre>' + // Absolutely positioned blinky cursor
-              '<div></div><div style="position: relative"></div>' + // DIVs containing the selection and the actual code
+              '<div style="position: relative; z-index: -1"></div><div></div>' + // DIVs containing the selection and the actual code
             '</div></div></div></div></div>';
     if (place.appendChild) place.appendChild(wrapper); else place(wrapper);
     // I've never seen more elegant code in my life.
@@ -44,6 +46,7 @@ var CodeMirror = (function() {
     // Needed to hide big blue blinking cursor on Mobile Safari
     if (ios) input.style.width = "0px";
     if (!webkit) lineSpace.draggable = true;
+    lineSpace.style.outline = "none";
     if (options.tabindex != null) input.tabIndex = options.tabindex;
     if (!options.gutter && !options.lineNumbers) gutter.style.display = "none";
 
@@ -276,6 +279,11 @@ var CodeMirror = (function() {
         });
         return index;
       },
+      scrollTo: function(x, y) {
+        if (x != null) scroller.scrollTop = x;
+        if (y != null) scroller.scrollLeft = y;
+        updateDisplay([]);
+      },
 
       operation: function(f){return operation(f)();},
       refresh: function(){
@@ -434,10 +442,10 @@ var CodeMirror = (function() {
         try {
           var text = e.dataTransfer.getData("Text");
           if (text) {
-	    var end = replaceRange(text, pos, pos);
-	    var curFrom = sel.from, curTo = sel.to;
-	    setSelectionUser(pos, end);
+            var curFrom = sel.from, curTo = sel.to;
+            setSelectionUser(pos, pos);
             if (draggingText) replaceRange("", curFrom, curTo);
+            replaceSelection(text);
 	    focusInput();
 	  }
         }
@@ -559,20 +567,22 @@ var CodeMirror = (function() {
       }
       updateLinesNoUndo(from, to, newText, selFrom, selTo);
     }
-    function unredoHelper(from, to) {
-      var change = from.pop();
-      if (change) {
+    function unredoHelper(from, to, dir) {
+      var set = from.pop(), len = set ? set.length : 0, out = [];
+      for (var i = dir > 0 ? 0 : len - 1, e = dir > 0 ? len : -1; i != e; i += dir) {
+        var change = set[i];
         var replaced = [], end = change.start + change.added;
         doc.iter(change.start, end, function(line) { replaced.push(line.text); });
-        to.push({start: change.start, added: change.old.length, old: replaced});
+        out.push({start: change.start, added: change.old.length, old: replaced});
         var pos = clipPos({line: change.start + change.old.length - 1,
                            ch: editEnd(replaced[replaced.length-1], change.old[change.old.length-1])});
         updateLinesNoUndo({line: change.start, ch: 0}, {line: end - 1, ch: getLine(end-1).text.length}, change.old, pos, pos);
-        updateInput = true;
       }
+      updateInput = true;
+      to.push(out);
     }
-    function undo() {unredoHelper(history.done, history.undone);}
-    function redo() {unredoHelper(history.undone, history.done);}
+    function undo() {unredoHelper(history.done, history.undone, -1);}
+    function redo() {unredoHelper(history.undone, history.done, 1);}
 
     function updateLinesNoUndo(from, to, newText, selFrom, selTo) {
       if (suppressEdits) return;
@@ -677,7 +687,8 @@ var CodeMirror = (function() {
       setSelection(selFrom, selTo, updateLine(sel.from.line), updateLine(sel.to.line));
 
       // Make sure the scroll-size div has the correct height.
-      code.style.height = (doc.height * textHeight() + 2 * paddingTop()) + "px";
+      if (scroller.clientHeight)
+        code.style.height = (doc.height * textHeight() + 2 * paddingTop()) + "px";
     }
 
     function replaceRange(code, from, to) {
@@ -870,7 +881,8 @@ var CodeMirror = (function() {
       showingFrom = from; showingTo = to;
       displayOffset = heightAtLine(doc, from);
       mover.style.top = (displayOffset * th) + "px";
-      code.style.height = (doc.height * th + 2 * paddingTop()) + "px";
+      if (scroller.clientHeight)
+        code.style.height = (doc.height * th + 2 * paddingTop()) + "px";
 
       // Since this is all rather error prone, it is honoured with the
       // only assertion in the whole file.
@@ -957,9 +969,15 @@ var CodeMirror = (function() {
       doc.iter(from, to, function(line) {
         if (nextIntact && nextIntact.to == j) nextIntact = intact.shift();
         if (!nextIntact || nextIntact.from > j) {
-          if (line.hidden) scratch.innerHTML = "<pre></pre>";
-          else scratch.innerHTML = (line.className ? '<pre class="' + line.className + '">' : "<pre>") +
-            line.getHTML(tabText) + "</pre>";
+          if (line.hidden) var html = scratch.innerHTML = "<pre></pre>";
+          else {
+            var html = '<pre>' + line.getHTML(tabText) + '</pre>';
+            // Kludge to make sure the styled element lies behind the selection (by z-index)
+            if (line.className)
+              html = '<div style="position: relative"><pre class="' + line.className +
+              '" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: -2">&#160;</pre>' + html + "</div>";
+          }
+          scratch.innerHTML = html;
           lineDiv.insertBefore(scratch.firstChild, curNode);
         } else {
           curNode = curNode.nextSibling;
@@ -1143,7 +1161,7 @@ var CodeMirror = (function() {
     function moveV(dir, unit) {
       var dist = 0, pos = localCoords(sel.inverted ? sel.from : sel.to, true);
       if (goalColumn != null) pos.x = goalColumn;
-      if (unit == "page") dist = scroller.clientHeight;
+      if (unit == "page") dist = Math.min(scroller.clientHeight, window.innerHeight || document.documentElement.clientHeight);
       else if (unit == "line") dist = textHeight();
       var target = coordsChar(pos.x, pos.y + dist * dir + 2);
       setCursor(target.line, target.ch, true);
@@ -2274,7 +2292,7 @@ var CodeMirror = (function() {
 
       if (!allText && endAt == null)
         span(" ");
-      else if (!marked)
+      else if (!marked || !marked.length)
         for (var i = 0, ch = 0; ch < len; i+=2) {
           var str = st[i], style = st[i+1], l = str.length;
           if (ch + l > len) str = str.slice(0, len - ch);
@@ -2283,32 +2301,35 @@ var CodeMirror = (function() {
         }
       else {
         var pos = 0, i = 0, text = "", style, sg = 0;
-        var markpos = -1, mark = null;
-        function nextMark() {
-          if (marked) {
-            markpos += 1;
-            mark = (markpos < marked.length) ? marked[markpos] : null;
+        var nextChange = marked[0].from || 0, marks = [], markpos = 0;
+        function advanceMarks() {
+          var m;
+          while (markpos < marked.length &&
+                 ((m = marked[markpos]).from == pos || m.from == null)) {
+            if (m.style != null) marks.push(m);
+            ++markpos;
+          }
+          nextChange = markpos < marked.length ? marked[markpos].from : Infinity;
+          for (var i = 0; i < marks.length; ++i) {
+            var to = marks[i].to || Infinity;
+            if (to == pos) marks.splice(i--, 1);
+            else nextChange = Math.min(to, nextChange);
           }
         }
-        nextMark();
+        var m = 0;
         while (pos < len) {
-          var upto = len;
-          var extraStyle = "";
-          while (mark && mark.to != null && mark.to <= pos) nextMark();
-          if (mark) {
-            if (mark.from > pos) upto = Math.min(upto, mark.from);
-            else {
-              extraStyle += " " + mark.style;
-              if (mark.to != null) upto = Math.min(upto, mark.to);
+          if (nextChange == pos) advanceMarks();
+          var upto = Math.min(len, nextChange);
+          while (true) {
+            if (text) {
+              var end = pos + text.length;
+              var appliedStyle = style;
+              for (var j = 0; j < marks.length; ++j)
+                appliedStyle = (appliedStyle ? appliedStyle + " " : "") + marks[j].style;
+              span(end > upto ? text.slice(0, upto - pos) : text, appliedStyle);
+              if (end >= upto) {text = text.slice(upto - pos); pos = upto; break;}
+              pos = end;
             }
-          }
-          for (;;) {
-            var end = pos + text.length;
-            var appliedStyle = style;
-            if (extraStyle) appliedStyle = style ? style + extraStyle : extraStyle;
-            span(end > upto ? text.slice(0, upto - pos) : text, appliedStyle);
-            if (end >= upto) {text = text.slice(upto - pos); pos = upto; break;}
-            pos = end;
             text = st[i++]; style = styleToClass(st[i++]);
           }
         }
@@ -2534,11 +2555,13 @@ var CodeMirror = (function() {
   History.prototype = {
     addChange: function(start, added, old) {
       this.undone.length = 0;
-      var time = +new Date, last = this.done[this.done.length - 1];
-      if (time - this.time > 400 || !last ||
-          last.start > start + added || last.start + last.added < start - last.added + last.old.length)
-        this.done.push({start: start, added: added, old: old});
-      else {
+      var time = +new Date, cur = this.done[this.done.length - 1], last = cur && cur[cur.length - 1];
+      var dtime = time - this.time;
+      if (dtime > 400 || !last) {
+        this.done.push([{start: start, added: added, old: old}]);
+      } else if (last.start > start + added || last.start + last.added < start - last.added + last.old.length) {
+        cur.push({start: start, added: added, old: old});
+      } else {
         var oldoff = 0;
         if (start < last.start) {
           for (var i = last.start - start - 1; i >= 0; --i)
