@@ -4,7 +4,7 @@ Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 0.5.3
+Stable tag: 0.5.5
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -68,13 +68,19 @@ Note: "Search & replace" by shortcut and "Auto-omplete" can't work in the "fulls
 
 == Changelog ==
 
+= 0.5.5 =
+* Updated CodeMirror to ver. 2.21.
+* Add "Smart indent" option.
+* Discontinue "Tab mode" and "Indentation for a new line" options.
+* Fix a bug: Selected elements by dragging the mouse isn't displayed inverted correctly.
+
 = 0.5.3 =
 * Updated CodeMirror to ver. 2.2-55.
 * Supports "Emacs keybindings".
 * Supports "Vim keybindings".
 * Supports "Highlighting the current line".
 * Re-added "Serach and Replace" box into the toolbar.
-* Added new setting option to show/hide serach and replace box..
+* Added new setting option to show/hide serach and replace box.
 
 = 0.5 =
 * Updated CodeMirror to ver. 2.2-39.
@@ -115,6 +121,9 @@ Note: "Search & replace" by shortcut and "Auto-omplete" can't work in the "fulls
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.5.5 =
+This version has a new feature, changes and bug fix.
 
 = 0.5.3 =
 This version has new features.
