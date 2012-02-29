@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CodeMirror for CodeEditor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-28 03:20+0900\n"
-"PO-Revision-Date: 2012-01-28 03:23+0900\n"
-"Last-Translator: redcocker <masa153@gmail.com>\n"
+"POT-Creation-Date: 2012-02-28 23:08+0900\n"
+"PO-Revision-Date: 2012-02-28 23:10+0900\n"
+"Last-Translator: redcocker\n"
 "Language-Team: redcocker\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,325 +20,334 @@ msgstr ""
 msgid "Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar."
 msgstr "「CodeMirror」を利用して「テーマエディター」、「プラグインエディター」のソースコードを強調表示するプラグインです。このプラグインは、「テーマエディター」、「プラグインエディター」上のソースコードを強調表示し、エディターに便利なツールバーを追加します。"
 
-#: ../codemirror-for-codeeditor.php:144
+#: ../codemirror-for-codeeditor.php:152
 msgid "CodeMirror for CodeEditor has successfully created new DB table.<br />If you upgraded to this version, some setting options may be added or reset to the default values.<br />Go to the <a href=\"options-general.php?page=codemirror-for-codeeditor-options\">setting panel</a> and configure CodeMirror for CodeEditor now. Once you save your settings, this message will be cleared."
 msgstr "CodeMirror for CodeEditorは、新しいデータベーステーブルの作成に成功しました。<br />以前のバージョンからアップデートした場合は、設定オプションが追加されていたり、リセットされているかもしてません。<br /><a href=\"options-general.php?page=codemirror-for-codeeditor-options\">設定画面</a>で、CodeMirror for CodeEditorの設定を行って下さい。一度、設定を保存すれば、このメッセージは消えます。"
 
-#: ../codemirror-for-codeeditor.php:158
+#: ../codemirror-for-codeeditor.php:166
 msgid "Settings"
 msgstr "設定"
 
-#: ../codemirror-for-codeeditor.php:378
+#: ../codemirror-for-codeeditor.php:397
 msgid "Theme: "
 msgstr "テーマ: "
 
-#: ../codemirror-for-codeeditor.php:392
+#: ../codemirror-for-codeeditor.php:411
 msgid "Search"
 msgstr "検索"
 
-#: ../codemirror-for-codeeditor.php:392
+#: ../codemirror-for-codeeditor.php:411
 msgid "with"
 msgstr "次の文字列で"
 
-#: ../codemirror-for-codeeditor.php:392
+#: ../codemirror-for-codeeditor.php:411
 msgid "Replace"
 msgstr "置換"
 
-#: ../codemirror-for-codeeditor.php:392
+#: ../codemirror-for-codeeditor.php:411
 msgid "Replace All"
 msgstr "全置換"
 
-#: ../codemirror-for-codeeditor.php:392
+#: ../codemirror-for-codeeditor.php:411
 msgid "Clear"
 msgstr "クリア"
 
-#: ../codemirror-for-codeeditor.php:395
+#: ../codemirror-for-codeeditor.php:414
 msgid "Update File"
 msgstr "ファイルを更新"
 
-#: ../codemirror-for-codeeditor.php:451
+#: ../codemirror-for-codeeditor.php:473
 msgid "Cheatin&#8217; uh?"
 msgstr "間違いましたか？"
 
-#: ../codemirror-for-codeeditor.php:519
+#: ../codemirror-for-codeeditor.php:546
 msgid "Invalid value. Settings could not be saved.<br />Your \"Gutter Size\" must be entered in numbers."
 msgstr "不正な値です。設定を保存できませんでした。<br />「行番号、マーカースペースのサイズ」の設定値は、半角数字のみで入力して下さい。"
 
-#: ../codemirror-for-codeeditor.php:522
+#: ../codemirror-for-codeeditor.php:549
 msgid "Invalid value. Settings could not be saved.<br />Your \"Tab size\" must be entered in numbers."
 msgstr "不正な値です。設定を保存できませんでした。<br />「タブのサイズ」の設定値は、半角数字のみで入力して下さい。"
 
-#: ../codemirror-for-codeeditor.php:528
+#: ../codemirror-for-codeeditor.php:555
 msgid "Settings saved."
 msgstr "設定を保存しました。"
 
-#: ../codemirror-for-codeeditor.php:537
+#: ../codemirror-for-codeeditor.php:564
 msgid "All settings were reset. Please <a href=\"options-general.php?page=codemirror-for-codeeditor-options\">reload the page</a>."
 msgstr "設定はリセットされました。 <a href=\"options-general.php?page=codemirror-for-codeeditor-options\">ページの再読込み</a>を実行して下さい。"
 
-#: ../codemirror-for-codeeditor.php:547
+#: ../codemirror-for-codeeditor.php:574
 msgid "1. Settings"
 msgstr "１．設定"
 
-#: ../codemirror-for-codeeditor.php:550
+#: ../codemirror-for-codeeditor.php:577
 msgid "Highlight sourcecodes"
 msgstr "ソースコードの強調表示"
 
-#: ../codemirror-for-codeeditor.php:552
-#: ../codemirror-for-codeeditor.php:586
-#: ../codemirror-for-codeeditor.php:593
-#: ../codemirror-for-codeeditor.php:610
-#: ../codemirror-for-codeeditor.php:617
-#: ../codemirror-for-codeeditor.php:631
-#: ../codemirror-for-codeeditor.php:638
-#: ../codemirror-for-codeeditor.php:645
-#: ../codemirror-for-codeeditor.php:652
-#: ../codemirror-for-codeeditor.php:659
-#: ../codemirror-for-codeeditor.php:666
+#: ../codemirror-for-codeeditor.php:579
+#: ../codemirror-for-codeeditor.php:613
+#: ../codemirror-for-codeeditor.php:620
+#: ../codemirror-for-codeeditor.php:637
+#: ../codemirror-for-codeeditor.php:644
+#: ../codemirror-for-codeeditor.php:658
+#: ../codemirror-for-codeeditor.php:665
+#: ../codemirror-for-codeeditor.php:672
+#: ../codemirror-for-codeeditor.php:679
+#: ../codemirror-for-codeeditor.php:686
+#: ../codemirror-for-codeeditor.php:693
+#: ../codemirror-for-codeeditor.php:700
 msgid "Enable"
 msgstr "有効化"
 
-#: ../codemirror-for-codeeditor.php:553
+#: ../codemirror-for-codeeditor.php:580
 msgid "Enable/Disable code highlighting."
 msgstr "強調表示の有効化/無効化。"
 
-#: ../codemirror-for-codeeditor.php:557
+#: ../codemirror-for-codeeditor.php:584
 msgid "Theme"
 msgstr "テーマ"
 
-#: ../codemirror-for-codeeditor.php:560
+#: ../codemirror-for-codeeditor.php:587
 msgid "Default"
 msgstr "Default"
 
-#: ../codemirror-for-codeeditor.php:561
+#: ../codemirror-for-codeeditor.php:588
 msgid "Cobalt"
 msgstr "Cobalt"
 
-#: ../codemirror-for-codeeditor.php:562
+#: ../codemirror-for-codeeditor.php:589
 msgid "Eclipse"
 msgstr "Eclipse"
 
-#: ../codemirror-for-codeeditor.php:563
+#: ../codemirror-for-codeeditor.php:590
 msgid "Elegant"
 msgstr "Elegant"
 
-#: ../codemirror-for-codeeditor.php:564
+#: ../codemirror-for-codeeditor.php:591
 msgid "Monokai"
 msgstr "Monokai"
 
-#: ../codemirror-for-codeeditor.php:565
+#: ../codemirror-for-codeeditor.php:592
 msgid "Neat"
 msgstr "Neat"
 
-#: ../codemirror-for-codeeditor.php:566
+#: ../codemirror-for-codeeditor.php:593
 msgid "Night"
 msgstr "Night"
 
-#: ../codemirror-for-codeeditor.php:567
+#: ../codemirror-for-codeeditor.php:594
 msgid "Rubyblue"
 msgstr "Rubyblue"
 
-#: ../codemirror-for-codeeditor.php:569
+#: ../codemirror-for-codeeditor.php:596
 msgid "Select a theme.<br />You can also select another theme on the editor."
 msgstr "テーマを選択。<br />テーマは、エディター上でも切り替え可能です。"
 
-#: ../codemirror-for-codeeditor.php:573
+#: ../codemirror-for-codeeditor.php:600
 msgid "Keymap"
 msgstr "キーマップ"
 
-#: ../codemirror-for-codeeditor.php:576
+#: ../codemirror-for-codeeditor.php:603
 msgid "Normal"
 msgstr "ノーマル"
 
-#: ../codemirror-for-codeeditor.php:577
+#: ../codemirror-for-codeeditor.php:604
 msgid "Emacs"
 msgstr "Emacs"
 
-#: ../codemirror-for-codeeditor.php:578
+#: ../codemirror-for-codeeditor.php:605
 msgid "Vim"
 msgstr "Vim"
 
-#: ../codemirror-for-codeeditor.php:580
+#: ../codemirror-for-codeeditor.php:607
 msgid "You can also use commands with Emacs or Vim-like keystrokes"
 msgstr "Emacs風、またはVim風のキーボード・ショートカットを使うことも出来ます。"
 
-#: ../codemirror-for-codeeditor.php:584
+#: ../codemirror-for-codeeditor.php:611
 msgid "Show linenumber"
 msgstr "行番号を表示"
 
-#: ../codemirror-for-codeeditor.php:587
+#: ../codemirror-for-codeeditor.php:614
 msgid "Show/Hide linenumber."
 msgstr "行番号の表示/非表示。"
 
-#: ../codemirror-for-codeeditor.php:591
+#: ../codemirror-for-codeeditor.php:618
 msgid "Show gutter"
 msgstr "マーカースペースを表示"
 
-#: ../codemirror-for-codeeditor.php:594
+#: ../codemirror-for-codeeditor.php:621
 msgid "Show/Hide gutter. You can set a marker icon on the gutter by clicking linenumber.<br />Even when linenumber is hidden, the gutter will be shown."
 msgstr "マーカースペースの表示/非表示。行番号をクリックすると、マーカースペースに目印としてマーカーが表示されます。<br />マーカースペースは、行番号が非表示の場合でも、表示されます。"
 
-#: ../codemirror-for-codeeditor.php:598
+#: ../codemirror-for-codeeditor.php:625
 msgid "Gutter size"
 msgstr "行番号、マーカースペースのサイズ"
 
-#: ../codemirror-for-codeeditor.php:603
+#: ../codemirror-for-codeeditor.php:630
 msgid "pixel"
 msgstr "ピクセル"
 
-#: ../codemirror-for-codeeditor.php:604
+#: ../codemirror-for-codeeditor.php:631
 msgid "You can resize the row for the linenumber and gutter."
 msgstr "行番号やマーカーを表示する列のサイズを調整します。"
 
-#: ../codemirror-for-codeeditor.php:608
+#: ../codemirror-for-codeeditor.php:635
 msgid "Fixed gutter"
 msgstr "行番号、マーカースペースを固定"
 
-#: ../codemirror-for-codeeditor.php:611
+#: ../codemirror-for-codeeditor.php:638
 msgid "When you scroll the textarea horizontally, the gutter will stay visible."
 msgstr "テキストエリアを水平スクロールした時にも、行番号とマーカースペースが表示されたままになります。"
 
-#: ../codemirror-for-codeeditor.php:615
+#: ../codemirror-for-codeeditor.php:642
 msgid "Highlighting the cursor line"
 msgstr "カーソル行を強調"
 
-#: ../codemirror-for-codeeditor.php:618
+#: ../codemirror-for-codeeditor.php:645
 msgid "When this option is enabled, the cursor line will be highlighted."
 msgstr "有効化すると、カーソルが入っている行を色付きで表示します。"
 
-#: ../codemirror-for-codeeditor.php:622
+#: ../codemirror-for-codeeditor.php:649
 msgid "Tab size"
 msgstr "タブのサイズ"
 
-#: ../codemirror-for-codeeditor.php:625
+#: ../codemirror-for-codeeditor.php:652
 msgid "Set the tab(indent) size by the number of space characters.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_indentUnit\">\"indentUnit\" section</a> and <a href=\"http://codemirror.net/manual.html#option_tabSize\">\"tabSize\" section</a> in the manual."
 msgstr "タブをサイズを半角スペースの数で指定します。<br />詳しくは、マニュアルの<a href=\"http://codemirror.net/manual.html#option_indentUnit\">「indentUnit」の項</a>と<a href=\"http://codemirror.net/manual.html#option_tabSize\">「tabSize」の項</a>を参照。"
 
-#: ../codemirror-for-codeeditor.php:629
+#: ../codemirror-for-codeeditor.php:656
 msgid "Indent with tabs"
 msgstr "タブでインデント"
 
-#: ../codemirror-for-codeeditor.php:632
+#: ../codemirror-for-codeeditor.php:659
 msgid "The leading every multiple of 8 spaces will be replaced with tabs.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_indentWithTabs\">\"indentWithTabs\" section</a> in the manual."
 msgstr "予め先頭のスペースを8文字分毎に１つのタブで置き換えます。<br />詳しくは、マニュアルの<a href=\"http://codemirror.net/manual.html#option_indentWithTabs\">「indentWithTabs」の項</a>を参照。"
 
-#: ../codemirror-for-codeeditor.php:636
+#: ../codemirror-for-codeeditor.php:663
 msgid "Smart indent"
 msgstr "スマートインデント"
 
-#: ../codemirror-for-codeeditor.php:639
+#: ../codemirror-for-codeeditor.php:666
 msgid "When this option is enabled, this plgin will give a context-sensitive indent to a new line.<br />When it is disabled, it will give an indent the same as the line before to a new line.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_smartIndent\">\"smartIndent\" section</a> in the manual."
 msgstr "有効化すると、改行時に構文に応じたインデントを行います。<br />無効の場合は、直前の行と同じサイズのインデントを行います。<br />詳しくは、マニュアルの<a href=\"http://codemirror.net/manual.html#option_smartIndent\">「smartIndent」の項</a>を参照。"
 
-#: ../codemirror-for-codeeditor.php:643
+#: ../codemirror-for-codeeditor.php:670
 msgid "Visible tabs"
 msgstr "タブをマーカーで表示"
 
-#: ../codemirror-for-codeeditor.php:646
+#: ../codemirror-for-codeeditor.php:673
 msgid "After enabled, Tabs will be replaced with the markers and be visible."
 msgstr "有効化するとタブがマーカーで表示されます。"
 
-#: ../codemirror-for-codeeditor.php:650
+#: ../codemirror-for-codeeditor.php:677
 msgid "Highlight pair of brackets"
 msgstr "括弧の強調表示"
 
-#: ../codemirror-for-codeeditor.php:653
+#: ../codemirror-for-codeeditor.php:680
 msgid "The pair of brackets will be highlighted when the cursor is placed before or after a bracket.<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#matchBrackets\">\"matchBrackets\" section</a> in the manual."
 msgstr "括弧の前後にカーソルが挿入された時、対になる括弧と共に強調表示します。<br />詳しくは、マニュアルの<a href=\"http://codemirror.net/manual.html#matchBrackets\">「matchBrackets」の項</a>を参照。"
 
-#: ../codemirror-for-codeeditor.php:657
+#: ../codemirror-for-codeeditor.php:684
 msgid "Auto indentation"
 msgstr "自動的なインデント"
 
-#: ../codemirror-for-codeeditor.php:660
+#: ../codemirror-for-codeeditor.php:687
 msgid "When some constructional characters are typed, they will be indented automatically and automatically.<br/ >For example \"{ }\" in \"{ }\".<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_electricChars\">\"electricChars\" section</a> in the manual."
 msgstr "構文上、特別な文字が入力された時、自動的かつ適切にインデントします。<br />例えば、「{ }」の中の「{ }」。<br />詳しくは、マニュアルの<a href=\"http://codemirror.net/manual.html#option_electricChars\">「electricChars」の項</a>を参照。"
 
-#: ../codemirror-for-codeeditor.php:664
+#: ../codemirror-for-codeeditor.php:691
+msgid "Highlight matched strings "
+msgstr "マッチする文字列を強調"
+
+#: ../codemirror-for-codeeditor.php:694
+msgid "Highlight strings that matched the selection with a mouse."
+msgstr "マウスの選択範囲とマッチする文字列を強調表示する。"
+
+#: ../codemirror-for-codeeditor.php:698
 msgid "Show Search and Replace box"
 msgstr "検索・置換ボックスを表示"
 
-#: ../codemirror-for-codeeditor.php:667
+#: ../codemirror-for-codeeditor.php:701
 msgid "Show/Hide Search and Replace box on the toolbar."
 msgstr "ツールバー上の「検索・置換ボックス」の表示／非表示。"
 
-#: ../codemirror-for-codeeditor.php:672
+#: ../codemirror-for-codeeditor.php:706
 msgid "Save Changes"
 msgstr "設定を保存"
 
-#: ../codemirror-for-codeeditor.php:675
+#: ../codemirror-for-codeeditor.php:709
 msgid "2. Restore all settings to default"
 msgstr "２．設定のリセット"
 
-#: ../codemirror-for-codeeditor.php:680
+#: ../codemirror-for-codeeditor.php:714
 msgid "Reset All Settings"
 msgstr "設定をリセット"
 
-#: ../codemirror-for-codeeditor.php:683
+#: ../codemirror-for-codeeditor.php:717
 msgid "3. Your System Info"
 msgstr "３．システム情報"
 
-#: ../codemirror-for-codeeditor.php:686
+#: ../codemirror-for-codeeditor.php:720
 msgid "Server OS:"
 msgstr "サーバーのOS:"
 
-#: ../codemirror-for-codeeditor.php:687
+#: ../codemirror-for-codeeditor.php:721
 msgid "PHP version:"
 msgstr "PHPのバージョン:"
 
-#: ../codemirror-for-codeeditor.php:688
+#: ../codemirror-for-codeeditor.php:722
 msgid "MySQL version:"
 msgstr "MySQLのバージョン:"
 
-#: ../codemirror-for-codeeditor.php:689
+#: ../codemirror-for-codeeditor.php:723
 msgid "WordPress version:"
 msgstr "WordPressのバージョン:"
 
-#: ../codemirror-for-codeeditor.php:690
+#: ../codemirror-for-codeeditor.php:724
 msgid "Site URL:"
 msgstr "サイトのURL:"
 
-#: ../codemirror-for-codeeditor.php:691
+#: ../codemirror-for-codeeditor.php:725
 msgid "WordPress URL:"
 msgstr "WordPressのURL:"
 
-#: ../codemirror-for-codeeditor.php:692
+#: ../codemirror-for-codeeditor.php:726
 msgid "WordPress language:"
 msgstr "WordPressのロケール:"
 
-#: ../codemirror-for-codeeditor.php:693
+#: ../codemirror-for-codeeditor.php:727
 msgid "WordPress character set:"
 msgstr "WordPressの文字コード:"
 
-#: ../codemirror-for-codeeditor.php:694
+#: ../codemirror-for-codeeditor.php:728
 msgid "WordPress theme:"
 msgstr "WordPressのテーマ:"
 
-#: ../codemirror-for-codeeditor.php:695
+#: ../codemirror-for-codeeditor.php:729
 msgid "CodeMirror for CodeEditor version:"
 msgstr "CodeMirror for CodeEditorのバージョン:"
 
-#: ../codemirror-for-codeeditor.php:696
+#: ../codemirror-for-codeeditor.php:730
 msgid "CodeMirror for CodeEditor DB version:"
 msgstr "CodeMirror for CodeEditorのDBバージョン:"
 
-#: ../codemirror-for-codeeditor.php:698
+#: ../codemirror-for-codeeditor.php:732
 msgid "CodeMirror version:"
 msgstr "CodeMirrorのバージョン:"
 
-#: ../codemirror-for-codeeditor.php:699
+#: ../codemirror-for-codeeditor.php:733
 msgid "CodeMirror for CodeEditor URL:"
 msgstr "CodeMirror for CodeEditorのURL:"
 
-#: ../codemirror-for-codeeditor.php:700
+#: ../codemirror-for-codeeditor.php:734
 msgid "Your browser:"
 msgstr "ブラウザ:"
 
-#: ../codemirror-for-codeeditor.php:704
+#: ../codemirror-for-codeeditor.php:738
 msgid "To report a bug ,submit requests and feedback, "
 msgstr "バグの報告、ご要望、ご感想は、"
 
-#: ../codemirror-for-codeeditor.php:704
+#: ../codemirror-for-codeeditor.php:738
 msgid "Use <a href=\"http://wordpress.org/tags/codemirror-for-codeeditor?forum_id=10\">Forum</a> or <a href=\"http://www.near-mint.com/blog/contact\">Mail From</a>"
 msgstr "<a href=\"http://wordpress.org/tags/codemirror-for-codeeditor?forum_id=10\">フォーラム</a> または、<a href=\"http://www.near-mint.com/blog/contact\">メールフォーム</a>まで"
 

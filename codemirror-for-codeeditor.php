@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.5.5
+Version: 0.5.6
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2012/2/4
+Last modified: 2012/2/28
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -37,9 +37,9 @@ CodeMirror2 is licensed under the MIT compatible license.
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.5.5";
-	var $cfc_db_ver = "0.5.5";
-	var $cfc_lib_ver = "2.21";
+	var $cfc_ver = "0.5.6";
+	var $cfc_db_ver = "0.5.6";
+	var $cfc_lib_ver = "2.22";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -77,6 +77,7 @@ class CodeMirror_for_CodeEditor {
 			"visible_tabs" => 0,
 			"matchBrackets" => "true",
 			"electricChars" => "false",
+			"match_highlighter" => 0,
 			"show_search" => 1,
 			);
 		// Store in DB
@@ -119,6 +120,13 @@ class CodeMirror_for_CodeEditor {
 				update_option('cfc_setting_opt', $this->cfc_setting_opt);
 				$updated_count = $updated_count + 1;
 			}
+			// For update from ver.0.5.5 or older
+			if ($current_checkver_stamp && version_compare($current_checkver_stamp, "0.5.5", "<=")) {
+				$this->cfc_setting_opt['match_highlighter'] = 0;
+				update_option('cfc_setting_opt', $this->cfc_setting_opt);
+				$updated_count = $updated_count + 1;
+			}
+
 			update_option('cfc_checkver_stamp', $this->cfc_db_ver);
 			// Stamp for showing messages
 			if ($updated_count != 0) {
@@ -201,6 +209,9 @@ class CodeMirror_for_CodeEditor {
 		if ($this->cfc_setting_opt['keymap'] == "vim") {
 			wp_enqueue_script('codemirror-emacs-js', $this->cfc_plugin_url.'codemirror/keymap/vim.js', false, $this->cfc_lib_ver);
 		}
+		if ($this->cfc_setting_opt['match_highlighter'] == 1) {
+			wp_enqueue_script('codemirror-match-highlighter-js', $this->cfc_plugin_url.'codemirror/lib/util/match-highlighter.js', false, $this->cfc_lib_ver);
+		}
 	}
 
 	// Add scripts into the footer
@@ -273,11 +284,16 @@ var editor = CodeMirror.fromTextArea(document.getElementById(\"newcontent\"), {
 			}
 		}
 	},\n";
-		if ($this->cfc_setting_opt['hlLine'] == 1) {
-		echo "	onCursorActivity: function() {
-		editor.setLineClass(hlLine, null);
-		hlLine = editor.setLineClass(editor.getCursor().line, \"activeline\");
-	}
+		if ($this->cfc_setting_opt['hlLine'] == 1 || $this->cfc_setting_opt['match_highlighter'] == 1) {
+			echo "	onCursorActivity: function() {\n";
+			if ($this->cfc_setting_opt['hlLine'] == 1) {
+				echo "		editor.setLineClass(hlLine, null);
+		hlLine = editor.setLineClass(editor.getCursor().line, \"activeline\");\n";
+			}
+			if ($this->cfc_setting_opt['match_highlighter'] == 1) {
+				echo "		editor.matchHighlight(\"CodeMirror-matchhighlight\");\n";
+			}
+			echo "	}
 });
 
 var hlLine = editor.setLineClass(0, \"activeline\");\n\n";
@@ -444,6 +460,10 @@ function save_all() {
 		if ($this->cfc_setting_opt['visible_tabs'] == 1) {
 			echo ".cm-tab:after {content: \"\\21e5\"; display: -moz-inline-block; display: -webkit-inline-block; display: inline-block; width: 0px; position: relative; overflow: visible; left: -1.4em; color: #aaa;}\n";
 		}
+		if ($this->cfc_setting_opt['match_highlighter'] == 1) {
+			echo "span.CodeMirror-matchhighlight {background: #e9e9e9;}
+.CodeMirror-focused span.CodeMirror-matchhighlight {background: #e7e4ff !important;}\n";
+		}
 		echo "</style>\n<!-- CodeMirror for CodeEditor Ver.".$this->cfc_ver." Differential css End -->\n";
 	}
 
@@ -510,6 +530,11 @@ function save_all() {
 				$this->cfc_setting_opt['electricChars'] = 'true';
 			} else {
 				$this->cfc_setting_opt['electricChars'] = 'false';
+			}
+			if ($_POST['match_highlighter'] == 1) {
+				$this->cfc_setting_opt['match_highlighter'] = 1;
+			} else {
+				$this->cfc_setting_opt['match_highlighter'] = 0;
 			}
 			if ($_POST['show_search'] == 1) {
 				$this->cfc_setting_opt['show_search'] = 1;
@@ -660,6 +685,13 @@ function save_all() {
 				<td>
 					<input type="checkbox" name="electricChars" value="1" <?php if ($this->cfc_setting_opt['electricChars'] == 'true') {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
 					<p><small><?php _e("When some constructional characters are typed, they will be indented automatically and automatically.<br/ >For example \"{ }\" in \"{ }\".<br />For detail, refer to <a href=\"http://codemirror.net/manual.html#option_electricChars\">\"electricChars\" section</a> in the manual.", "cfc_lang") ?></small></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e("Highlight matched strings ", "cfc_lang") ?></th>
+				<td>
+					<input type="checkbox" name="match_highlighter" value="1" <?php if ($this->cfc_setting_opt['match_highlighter'] == 1) {echo 'checked=\"checked\"';} ?>/> <?php _e("Enable", "cfc_lang") ?>
+					<p><small><?php _e("Highlight strings that matched the selection with a mouse.", "cfc_lang") ?></small></p>
 				</td>
 			</tr>
 			<tr valign="top">

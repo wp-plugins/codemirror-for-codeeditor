@@ -15,26 +15,68 @@
     }
     return arr.indexOf(item) != -1;
   }
-  
-  CodeMirror.javascriptHint = function(editor) {
+
+  function scriptHint(editor, keywords, getToken) {
     // Find the token at the cursor
-    var cur = editor.getCursor(), token = editor.getTokenAt(cur), tprop = token;
+    var cur = editor.getCursor(), token = getToken(editor, cur), tprop = token;
     // If it's not a 'word-style' token, ignore the token.
-    if (!/^[\w$_]*$/.test(token.string)) {
+		if (!/^[\w$_]*$/.test(token.string)) {
       token = tprop = {start: cur.ch, end: cur.ch, string: "", state: token.state,
                        className: token.string == "." ? "property" : null};
     }
     // If it is a property, find out what it is a property of.
     while (tprop.className == "property") {
-      tprop = editor.getTokenAt({line: cur.line, ch: tprop.start});
+      tprop = getToken(editor, {line: cur.line, ch: tprop.start});
       if (tprop.string != ".") return;
-      tprop = editor.getTokenAt({line: cur.line, ch: tprop.start});
+      tprop = getToken(editor, {line: cur.line, ch: tprop.start});
+      if (tprop.string == ')') {
+        var level = 1;
+        do {
+          tprop = getToken(editor, {line: cur.line, ch: tprop.start});
+          switch (tprop.string) {
+          case ')': level++; break;
+          case '(': level--; break;
+          default: break;
+          }
+        } while (level > 0)
+        tprop = getToken(editor, {line: cur.line, ch: tprop.start});
+				if (tprop.className == 'variable')
+					tprop.className = 'function';
+				else return; // no clue
+      }
       if (!context) var context = [];
       context.push(tprop);
     }
-    return {list: getCompletions(token, context),
+    return {list: getCompletions(token, context, keywords),
             from: {line: cur.line, ch: token.start},
             to: {line: cur.line, ch: token.end}};
+  }
+
+  CodeMirror.javascriptHint = function(editor) {
+    return scriptHint(editor, javascriptKeywords,
+                      function (e, cur) {return e.getTokenAt(cur);});
+  }
+
+  function getCoffeeScriptToken(editor, cur) {
+  // This getToken, it is for coffeescript, imitates the behavior of
+  // getTokenAt method in javascript.js, that is, returning "property"
+  // type and treat "." as indepenent token.
+    var token = editor.getTokenAt(cur);
+    if (cur.ch == token.start + 1 && token.string.charAt(0) == '.') {
+      token.end = token.start;
+      token.string = '.';
+      token.className = "property";
+    }
+    else if (/^\.[\w$_]*$/.test(token.string)) {
+      token.className = "property";
+      token.start++;
+      token.string = token.string.replace(/\./, '');
+    }
+    return token;
+  }
+
+  CodeMirror.coffeescriptHint = function(editor) {
+    return scriptHint(editor, coffeescriptKeywords, getCoffeeScriptToken);
   }
 
   var stringProps = ("charAt charCodeAt indexOf lastIndexOf substring substr slice trim trimLeft trimRight " +
@@ -42,7 +84,9 @@
   var arrayProps = ("length concat join splice push pop shift unshift slice reverse sort indexOf " +
                     "lastIndexOf every some filter forEach map reduce reduceRight ").split(" ");
   var funcProps = "prototype apply call bind".split(" ");
-var keywords = ("and or xor __FILE__ exception" +
+  //var javascriptKeywords = ("break case catch continue debugger default delete do else false finally for function " +
+  //                "if in instanceof new null return switch throw true try typeof var void while with").split(" ");
+var javascriptKeywords = ("and or xor __FILE__ exception" +
 "_() __() __checked_selected_helper() __construct() __destruct() __get_option() " +
 "__ngettext() __ngettext_noop() __set() __tostring() _add_themes_utility_last() _added() " +
 "_admin_notice_multisite_activate_plugins_page() _admin_notice_post_locked() _admin_search_query() _block() _blockheader() _c() " +
@@ -730,7 +774,7 @@ var keywords = ("and or xor __FILE__ exception" +
 "xml_set_character_data_handler() xml_set_default_handler() xml_set_element_handler() xml_set_end_namespace_decl_handler() xml_set_object() xml_set_start_namespace_decl_handler() " +
 "zend_version() " +
 					"__LINE__ array() as break case" +
-					"class const continue declare default" +
+					"class const continue debugger declare default" +
 					"die() do echo() else elseif" +
 					"empty() enddeclare endfor endforeach endif" +
 					"endswitch endwhile eval() exit() extends" +
@@ -742,8 +786,10 @@ var keywords = ("and or xor __FILE__ exception" +
 					"interface implements instanceof public private" +
 					"protected abstract clone try catch" +
 					"throw this final __NAMESPACE__ namespace __DIR__").split(" ");
+  var coffeescriptKeywords = ("and break catch class continue delete do else extends false finally for " +
+                  "if in instanceof isnt new no not null of off on or return switch then throw true try typeof until void while with yes").split(" ");
 
-  function getCompletions(token, context) {
+  function getCompletions(token, context, keywords) {
     var found = [], start = token.string;
     function maybeAdd(str) {
       if (str.indexOf(start) == 0 && !arrayContains(found, str)) found.push(str);
@@ -765,6 +811,11 @@ var keywords = ("and or xor __FILE__ exception" +
         base = "";
       else if (obj.className == "atom")
         base = 1;
+      else if (obj.className == "function") {
+        if (window.jQuery != null && (obj.string == '$' || obj.string == 'jQuery') &&
+            (typeof jQuery == 'function')) base = jQuery();
+        else if (window._ != null && (obj.string == '_') && (typeof _ == 'function')) base = _();
+      }
       while (base != null && context.length)
         base = base[context.pop().string];
       if (base != null) gatherCompletions(base);
