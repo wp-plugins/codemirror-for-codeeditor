@@ -10,7 +10,7 @@ Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2012/2/28
+Last modified: 2012/3/1
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo

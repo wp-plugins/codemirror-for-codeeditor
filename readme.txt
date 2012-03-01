@@ -4,7 +4,7 @@ Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 0.5.5
+Stable tag: 0.5.6
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -68,6 +68,10 @@ Note: "Search & replace" by shortcut and "Auto-omplete" can't work in the "fulls
 
 == Changelog ==
 
+= 0.5.6 =
+* Updated CodeMirror to ver. 2.22.
+* Add "Highlight matched strings" option.
+
 = 0.5.5 =
 * Updated CodeMirror to ver. 2.21.
 * Add "Smart indent" option.
@@ -121,6 +125,9 @@ Note: "Search & replace" by shortcut and "Auto-omplete" can't work in the "fulls
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.5.6 =
+This version has a new feature.
 
 = 0.5.5 =
 This version has a new feature, changes and bug fix.
