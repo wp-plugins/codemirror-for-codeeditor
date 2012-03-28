@@ -4,7 +4,7 @@ Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 0.5.6.1
+Stable tag: trunk
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
