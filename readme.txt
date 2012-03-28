@@ -4,7 +4,7 @@ Donate link: http://www.near-mint.com/blog/donate
 Tags: CodeMirror, syntaxhighlighter, sourcecode, code, syntax, highlight, highlighting, editor, plugin, theme
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 0.5.6
+Stable tag: 0.5.6.1
 
 Just another code syntaxhighligher for the theme and plugin editor with CodeMirror.
 
@@ -16,7 +16,7 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 
 * Highlight sourcecodes in theme and plugin editor on the dashboard.
 * Based on Marijn Haverbeke's "[CodeMirror](http://codemirror.net/ "CodeMirrorr")" JavaScript library.
-* Built-in 8 themes.
+* Built-in 10 themes.
 * Useful toolbar which includes search/replace features.
 * Full-screen editing.
 * Auto-complete.
@@ -45,9 +45,12 @@ Just another code syntaxhighligher for the theme and plugin editor with CodeMirr
 
 * You can select a theme, run search and replace on the toolbar.
 * Place the cursor in the textarea and press "Esc" or "F11" key to chage to the "fullscreen mode".
-* Press "Ctrl - Space" to activate Auto-omplete.
-* Press "Ctrl" - Z" to undo the previous change.
-* Press "Ctrl" - Y" to redo.
+* Press "Ctrl" - "Space" to activate Auto-omplete.
+* Press "Ctrl" - "Z" to undo the previous change.
+* Press "Ctrl" - "Y" to redo.
+* Press "Shift" - "Tab" to reset line indentation to default.
+* Press "Ctrl/Cmd" - "[" to reduce line indentation.
+* Press "Ctrl/Cmd" - "]" to increase line indentation.
 
 You can also use following shortcuts to search and replace.
 
@@ -67,6 +70,10 @@ Note: "Search & replace" by shortcut and "Auto-omplete" can't work in the "fulls
 4. This is setting panel.
 
 == Changelog ==
+
+= 0.5.6.1 =
+* Updated CodeMirror to ver. 2.23.
+* Add new themes(Lesser-Dark, XQ-Dark).
 
 = 0.5.6 =
 * Updated CodeMirror to ver. 2.22.
@@ -125,6 +132,9 @@ Note: "Search & replace" by shortcut and "Auto-omplete" can't work in the "fulls
 * This is the initial release.
 
 == Upgrade Notice ==
+
+= 0.5.6.1 =
+This version has new features.
 
 = 0.5.6 =
 This version has a new feature.

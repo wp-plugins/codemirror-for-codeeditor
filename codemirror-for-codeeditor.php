@@ -3,14 +3,14 @@
 Plugin Name: CodeMirror for CodeEditor
 Plugin URI: http://www.near-mint.com/blog/software/codemirror-for-codeeditor
 Description: Just another code syntaxhighligher for the theme and plugin editor with CodeMirror. This plugin can highlight sourcecodes in theme/plugin editor and provide a useful toolbar.
-Version: 0.5.6
+Version: 0.5.6.1
 Author: redcocker
 Author URI: http://www.near-mint.com/blog/
 Text Domain: cfc_lang
 Domain Path: /languages
 */
 /* 
-Last modified: 2012/3/1
+Last modified: 2012/3/28
 License: GPL v2(Except "CodeMirror" libraries)
 */
 /*  Copyright 2011 M. Sumitomo
@@ -37,9 +37,9 @@ CodeMirror2 is licensed under the MIT compatible license.
 
 class CodeMirror_for_CodeEditor {
 	var $cfc_plugin_url;
-	var $cfc_ver = "0.5.6";
+	var $cfc_ver = "0.5.6.1";
 	var $cfc_db_ver = "0.5.6";
-	var $cfc_lib_ver = "2.22";
+	var $cfc_lib_ver = "2.23";
 	var $cfc_setting_opt;
 
 	function __construct() {
@@ -181,6 +181,8 @@ class CodeMirror_for_CodeEditor {
 		wp_enqueue_style('codemirror-theme-eclipse', $this->cfc_plugin_url.'codemirror/theme/eclipse.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-elegant', $this->cfc_plugin_url.'codemirror/theme/elegant.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-monokai', $this->cfc_plugin_url.'codemirror/theme/monokai.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-lesser-dark', $this->cfc_plugin_url.'codemirror/theme/lesser-dark.css', false, $this->cfc_lib_ver);
+		wp_enqueue_style('codemirror-theme-xq-dark', $this->cfc_plugin_url.'codemirror/theme/xq-dark.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-neat', $this->cfc_plugin_url.'codemirror/theme/neat.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-night', $this->cfc_plugin_url.'codemirror/theme/night.css', false, $this->cfc_lib_ver);
 		wp_enqueue_style('codemirror-theme-rubyblue', $this->cfc_plugin_url.'codemirror/theme/rubyblue.css', false, $this->cfc_lib_ver);
@@ -396,7 +398,7 @@ function save_all() {
 <script type=\"text/javascript\">\n";
 		echo 'jQuery("#newcontent").after("<div id =\"cfc-toolbar\"><label>'.__("Theme: ", "cfc_lang").'</label><select id=\"cfc-theme\" onchange=\"selectTheme(this)\">';
 
-		$theme_list = array("Default", "Cobalt", "Eclipse", "Elegant", "Monokai", "Neat", "Night", "Rubyblue");
+		$theme_list = array("Default", "Cobalt", "Eclipse", "Elegant", "Lesser-Dark", "Monokai", "Neat", "Night", "Rubyblue", "XQ-Dark");
 		foreach ($theme_list as $val) {
 			if ($val == $this->cfc_setting_opt['theme']) {
 				echo '<option value=\"'.strtolower($val).'\" selected=\"selected\">'.$val.'</option>';
@@ -588,10 +590,12 @@ function save_all() {
 						<option value="cobalt" <?php if ($this->cfc_setting_opt['theme'] == "cobalt") {echo 'selected="selected"';} ?>><?php _e("Cobalt", "cfc_lang") ?></option>
 						<option value="eclipse" <?php if ($this->cfc_setting_opt['theme'] == "eclipse") {echo 'selected="selected"';} ?>><?php _e("Eclipse", "cfc_lang") ?></option>
 						<option value="elegant" <?php if ($this->cfc_setting_opt['theme'] == "elegant") {echo 'selected="selected"';} ?>><?php _e("Elegant", "cfc_lang") ?></option>
+						<option value="lesser-dark" <?php if ($this->cfc_setting_opt['theme'] == "lesser-dark") {echo 'selected="selected"';} ?>><?php _e("Lesser-Dark", "cfc_lang") ?></option>
 						<option value="monokai" <?php if ($this->cfc_setting_opt['theme'] == "monokai") {echo 'selected="selected"';} ?>><?php _e("Monokai", "cfc_lang") ?></option>
 						<option value="neat" <?php if ($this->cfc_setting_opt['theme'] == "neat") {echo 'selected="selected"';} ?>><?php _e("Neat", "cfc_lang") ?></option>
 						<option value="night" <?php if ($this->cfc_setting_opt['theme'] == "night") {echo 'selected="selected"';} ?>><?php _e("Night", "cfc_lang") ?></option>
 						<option value="rubyblue" <?php if ($this->cfc_setting_opt['theme'] == "rubyblue") {echo 'selected="selected"';} ?>><?php _e("Rubyblue", "cfc_lang") ?></option>
+						<option value="xq-dark" <?php if ($this->cfc_setting_opt['theme'] == "xq-dark") {echo 'selected="selected"';} ?>><?php _e("XQ-Dark", "cfc_lang") ?></option>
 					</select>
 					<p><small><?php _e("Select a theme.<br />You can also select another theme on the editor.", "cfc_lang") ?></small></p>
 				</td>
